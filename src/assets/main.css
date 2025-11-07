@@ -1,10 +1,133 @@
-@import './base.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap');
+
+/* css */
+:root {
+  /* nutzt bereits importierte Font-Variable */
+  --font-display: 'Bitcount Prop Single Ink', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Globale Font-Erzwingung */
+html, body, #app, #app-container {
+  font-family: var(--font-display) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Alle Elemente und Pseudo-Elemente */
+*,
+*::before,
+*::after {
+  font-family: var(--font-display) !important;
+  box-sizing: inherit;
+}
+
+/* Formularelemente, Links, Buttons, SVG, Canvas */
+input,
+textarea,
+select,
+button,
+a,
+svg,
+canvas {
+  font-family: var(--font-display) !important;
+}
+
+/* Komponenten-spezifische Overrides (z. B. Buttons mit eigener Deklaration) */
+.Btn-Container,
+.Btn-Container * {
+  font-family: var(--font-display) !important;
+}
+
+/* Fallback für inline-styles: wenn möglich vermeiden; ansonsten sicherstellen, dass keine Inline-Fonts gesetzt sind. */
+[style*="font-family"] {
+  font-family: var(--font-display) !important;
+}
+
+:root {
+  --font-display: 'Bitcount Prop Single Ink', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-display);
+}
+
+:root {
+  --vt-c-white: #ffffff;
+  --vt-c-white-soft: #f8f8f8;
+  --vt-c-white-mute: #f2f2f2;
+
+  --vt-c-black: #181818;
+  --vt-c-black-soft: #222222;
+  --vt-c-black-mute: #282828;
+
+  --vt-c-indigo: #2c3e50;
+
+  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+  --vt-c-text-light-1: var(--vt-c-indigo);
+  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-dark-1: var(--vt-c-white);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--vt-c-white);
+  --color-background-soft: var(--vt-c-white-soft);
+  --color-background-mute: var(--vt-c-white-mute);
+
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  --section-gap: 160px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--vt-c-black);
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.3;
+  font-family: var(--font-display), Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 #app {
-  max-width: 1280px;
+  max-width: 375px;
   margin: 0 auto;
   padding: 2rem;
-  font-weight: normal;
 }
 
 a,
@@ -32,4 +155,187 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+}
+  /* From Uiverse.io by vinodjangid07 START OF BUTTON*/
+  .Btn-Container {
+    display: flex;
+    width: 170px;
+    height: fit-content;
+    background-color: #1d2129;
+    border-radius: 40px;
+    border: 1px solid #bc59f1;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--font-display), system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .icon-Container {
+    width: 45px;
+    height: 45px;
+    background-color: #BC59F1FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 3px solid #1d2129;
+  }
+  .text {
+    width: calc(170px - 45px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1em;
+    letter-spacing: 1.2px;
+  }
+  .icon-Container svg {
+    transition-duration: 1.5s;
+  }
+  .Btn-Container:hover .icon-Container svg {
+    transition-duration: 1.5s;
+    animation: arrow 1s linear infinite;
+  }
+  @keyframes arrow {
+    0% {
+      opacity: 0;
+      margin-left: 0px;
+    }
+    100% {
+      opacity: 1;
+      margin-left: 10px;
+    }
+  }
+  /* From Uiverse.io by vinodjangid07 END OF BUTTON*/
+
+  /* From Uiverse.io by andrew-demchenk0 START LOGIN */
+  .form {
+    --input-focus: #f8f8f8;
+    --font-color: #fefefe;
+    --font-color-sub: #7e7e7e;
+    --bg-color: #111;
+    --main-color: rgba(188, 89, 241, 0.77);
+    padding: 20px;
+    background: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+  }
+
+  .title {
+    color: var(--font-color-sub);
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.5;
+  }
+
+  .title span {
+    color: var(--font-color-sub);
+    font-weight: 600;
+    font-size: 17px;
+  }
+
+  .input {
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--font-color);
+    padding: 5px 10px;
+    outline: none;
+  }
+
+  .input::placeholder {
+    color: var(--font-color-sub);
+    opacity: 0.8;
+  }
+
+  .input:focus {
+    border: 2px solid var(--input-focus);
+  }
+
+  .login-with {
+    display: flex;
+    gap: 20px;
+  }
+
+  .button-log {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    color: var(--font-color);
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--main-color);
+  }
+
+  .button-log:active, .button-confirm:active {
+    box-shadow: 0px 0px var(--main-color);
+    transform: translate(3px, 3px);
+  }
+
+  .button-confirm {
+    margin: 50px auto 0 auto;
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    box-shadow: 4px 4px var(--main-color);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--font-color);
+    cursor: pointer;
+  }
+  /* From Uiverse.io by andrew-demchenk0 END LOGIN*/
+
+Element {
+}
+.jeTilz {
+  background-color: rgb(0, 0, 0);
+}
+@media (min-width: 1442px) {
+  .ddXYFK {
+    grid-template-columns: [full-start] 1fr [main-start] 1180px [main-end] 1fr [full-end];
+  }
+}
+@media (min-width: 1028px) {
+  .ddXYFK {
+    grid-template-columns: [full-start] 1fr [main-start] 988px [main-end] 1fr [full-end];
+  }
+}
+@media (min-width: 764px) {
+  .ddXYFK {
+    grid-template-columns: [full-start] 1fr [main-start] 748px [main-end] 1fr [full-end];
+  }
+}
+.ddXYFK {
+  display: grid;
+  grid-template-columns: [full-start] 20px [main-start] calc(100% - 40px) [main-end] 20px [full-end];
+}
+* {
+  margin: 0;
+  padding: 0;
 }
