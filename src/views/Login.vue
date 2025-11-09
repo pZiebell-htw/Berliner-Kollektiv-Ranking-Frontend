@@ -12,6 +12,7 @@
 <style>
 
 .form {
+  width: 300px;
   --input-focus: #f8f8f8;
   --font-color: #fefefe;
   --font-color-sub: #7e7e7e;
@@ -43,7 +44,7 @@
 }
 
 .input {
-  width: 250px;
+  width: 98%;
   height: 40px;
   border-radius: 5px;
   border: 2px solid var(--main-color);
@@ -98,7 +99,7 @@
 
 .button-confirm {
   margin: 50px auto 0 auto;
-  width: 120px;
+  width: 40%;
   height: 40px;
   border-radius: 5px;
   border: 2px solid var(--main-color);
@@ -108,6 +109,14 @@
   font-weight: 600;
   color: var(--font-color);
   cursor: pointer;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }
 
 </style>

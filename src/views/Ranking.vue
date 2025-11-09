@@ -11,11 +11,10 @@
   </head>
   <body>
   <header>
-    <h2>FR., 7 NOV</h2>
+    <h2>Top Ranking Collectives</h2>
   </header>
 
   <main class="events-list">
-    <!-- Event Card -->
     <article class="event-card">
       <img src="https://via.placeholder.com/600x200" alt="Event image" class="event-image">
       <div class="event-content">
@@ -57,12 +56,7 @@
 </template>
 
 <style scoped>
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 body {
   background-color: #111;
@@ -72,36 +66,41 @@ body {
   padding: 1.5rem;
 }
 
-/* Header */
 header {
-  border-left: 4px solid #d00;
-  padding-left: 1rem;
+  border-left: 4px solid rgba(188, 89, 241, 0.77);
+  padding-left: 5%;
   margin-bottom: 2rem;
 }
 
 header h2 {
   font-size: 1.5rem;
-  color: #ff3333;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-/* Event List */
 .events-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  padding: 5%;
+  box-sizing: border-box;
+
 }
 
-/* Event Card */
 .event-card {
+  width: 100%;             /* nimmt die volle Breite des Containers minus Padding */
   display: flex;
   align-items: flex-start;
   background: #1a1a1a;
   border-radius: 8px;
   overflow: hidden;
+  border: 2px solid rgba(188, 89, 241, 0.77);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 
 .event-card:hover {
   transform: translateY(-3px);
@@ -110,7 +109,7 @@ header h2 {
 
 .event-image {
   width: 200px;
-  height: 100%;
+  height: auto;
   object-fit: cover;
 }
 
@@ -141,12 +140,6 @@ header h2 {
   font-size: 0.85rem;
 }
 
-.event-meta .tickets {
-  color: #ff3333;
-}
 
-.event-meta .attendees {
-  color: #aaa;
-}
 
 </style>

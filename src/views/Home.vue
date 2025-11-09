@@ -1,4 +1,5 @@
 <script setup lang="ts">
+defineOptions({ name: 'HomeView' });
 import Button from '@/components/Button.vue'
 </script>
 
@@ -12,11 +13,12 @@ import Button from '@/components/Button.vue'
 </template>
 
 <style scoped>
+
 .button-row {
   display: flex;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 1rem;
   align-items: center;
-  flex-wrap: wrap;
 }
-</style>
 
+</style>
