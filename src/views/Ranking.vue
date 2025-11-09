@@ -1,78 +1,57 @@
 <script setup lang="ts">
+  interface Event {
+  title: string;
+  subtitle: string;
+  image: string;
+  tickets: number;
+  attendees: number;
+}
 
+// Array mit allen Events
+const events: Event[] = [
+  { title: 'FOUR PLAY', subtitle: 'House, Electro, Club X', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 999 },
+  { title: 'NIGHT BEATS', subtitle: 'Techno, Bass, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 412 },
+  { title: 'DEEP WAVES', subtitle: 'House, Electro, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 875 },
+  { title: 'BASS LAB', subtitle: 'Techno, Minimal, London', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 653 },
+  { title: 'ELECTRO CITY', subtitle: 'Electro, House, Paris', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 738 },
+  { title: 'TECH VIBES', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 921 },
+  { title: 'MIDNIGHT RAVERS', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 534 },
+  { title: 'SOUNDWAVE', subtitle: 'Electro, House, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 762 },
+  { title: 'BASSLINE NIGHT', subtitle: 'Techno, Minimal, London', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 489 },
+  { title: 'ELECTRIC FUSION', subtitle: 'Electro, House, Paris', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 681 },
+  { title: 'DARKROOM BEATS', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 945 },
+  { title: 'NEON PULSE', subtitle: 'House, Electro, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 812 },
+  { title: 'UNDERGROUND VIBES', subtitle: 'Techno, Minimal, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 679 },
+  { title: 'SYNTH CITY', subtitle: 'Electro, House, London', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 734 },
+  { title: 'TECHNO TEMPLE', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 888 },
+  { title: 'BASS MACHINE', subtitle: 'Techno, Minimal, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 563 },
+];
 </script>
 
 <template>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Events — Friday, 7 Nov</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
   <header>
     <h2>Top Ranking Collectives</h2>
   </header>
 
   <main class="events-list">
-    <article class="event-card">
-      <img src="https://via.placeholder.com/600x200" alt="Event image" class="event-image">
+    <article class="event-card" v-for="(event, index) in events" :key="index">
+      <img :src="event.image" :alt="event.title" class="event-image">
       <div class="event-content">
-        <h3 class="event-title">EVENT TITLE</h3>
-        <p class="event-subtitle">Genre, Club Name, City</p>
+        <h3 class="event-title">{{ event.title }}</h3>
+        <p class="event-subtitle">{{ event.subtitle }}</p>
         <div class="event-meta">
           <span class="tickets">🎟️ Tickets</span>
-          <span class="attendees">👥 641</span>
+          <span class="attendees">👥 {{ event.attendees }}</span>
         </div>
       </div>
     </article>
-
-    <article class="event-card">
-      <img src="https://via.placeholder.com/600x200" alt="Event image" class="event-image">
-      <div class="event-content">
-        <h3 class="event-title">ANOTHER EVENT</h3>
-        <p class="event-subtitle">Techno, Bass, Berlin</p>
-        <div class="event-meta">
-          <span class="tickets">🎟️ Tickets</span>
-          <span class="attendees">👥 517</span>
-        </div>
-      </div>
-    </article>
-
-    <article class="event-card">
-      <img src="https://via.placeholder.com/600x200" alt="Event image" class="event-image">
-      <div class="event-content">
-        <h3 class="event-title">FOUR PLAY</h3>
-        <p class="event-subtitle">House, Electro, Club X</p>
-        <div class="event-meta">
-          <span class="tickets">🎟️ Tickets</span>
-          <span class="attendees">👥 999</span>
-        </div>
-      </div>
-    </article>
-
   </main>
-  </body>
 </template>
 
-<style scoped>
-
-
-body {
-  background-color: #111;
-  color: #eee;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.5;
-  padding: 1.5rem;
-}
-
-header {
-  border-left: 4px solid rgba(188, 89, 241, 0.77);
-  padding-left: 5%;
-  margin-bottom: 2rem;
-}
-
+<style>
 header h2 {
+  margin-top: 10rem;
+  text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -84,23 +63,19 @@ header h2 {
   gap: 1rem;
   align-items: center;
   width: 90%;
-  margin: 0 auto;
-  padding: 5%;
-  box-sizing: border-box;
-
+  margin: 2rem auto;
 }
 
 .event-card {
-  width: 100%;             /* nimmt die volle Breite des Containers minus Padding */
   display: flex;
   align-items: flex-start;
   background: #1a1a1a;
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid rgba(188, 89, 241, 0.77);
+  width: 90%;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 
 .event-card:hover {
   transform: translateY(-3px);
@@ -140,6 +115,12 @@ header h2 {
   font-size: 0.85rem;
 }
 
+.event-meta .tickets {
+  color: #ff33cc;
+}
 
+.event-meta .attendees {
+  color: #aaa;
+}
 
 </style>

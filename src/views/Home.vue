@@ -15,10 +15,13 @@ import Button from '@/components/Button.vue'
 <style scoped>
 
 .button-row {
+  height: 100vh;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+
 }
 
 </style>
