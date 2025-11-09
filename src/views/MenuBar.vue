@@ -1,14 +1,39 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const search = ref('')
+
+function goHome() {
+  router.push({ path: '/' })
+}
+
+function goRanking() {
+  router.push({ path: '/ranking' })
+}
+
+function goProfile() {
+  router.push({ path: '/login' })
+}
+
+function onSearchKey(e: KeyboardEvent) {
+  if (e.key === 'Enter') {
+    const q = search.value.trim()
+    if (q) {
+      router.push({ path: '/search', query: { q } })
+    }
+  }
+}
 </script>
 
 <template>
   <main>
     <div class="button-container">
-      <button class="button" aria-label="Home">HOME</button>
-      <button class="button" aria-label="Ranking">RANKING</button>
-      <input class="input" name="suche" placeholder="SUCHE" >
-      <button class ="button right" to="login">PROFIL</button>
+      <button class="button" aria-label="Home" @click="goHome">HOME</button>
+      <button class="button" aria-label="Ranking" @click="goRanking">RANKING</button>
+      <input class="input" name="suche" placeholder="SUCHE" v-model="search" @keydown="onSearchKey">
+      <button class="button right" @click="goProfile">PROFIL</button>
     </div>
   </main>
 </template>
