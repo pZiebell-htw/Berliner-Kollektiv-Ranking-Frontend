@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import MenuBar from '@/views/MenuBar.vue'
+import HelloFromBackend from './components/HelloFromBackend.vue';
 </script>
 
 
@@ -10,6 +11,7 @@ import MenuBar from '@/views/MenuBar.vue'
   <div id="app-container">
     <RouterView />
   </div>
+  <HelloFromBackend />
 </template>
 
 <style scoped>
@@ -35,6 +37,7 @@ MenuBar,
 }
 
 </style>
+
 
 
 
