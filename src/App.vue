@@ -11,7 +11,7 @@ import HelloFromBackend from './components/HelloFromBackend.vue';
   <div id="app-container">
     <RouterView />
   </div>
-  <HelloFromBackend />
+  <!-- <HelloFromBackend /> -->
 </template>
 
 <style scoped>
