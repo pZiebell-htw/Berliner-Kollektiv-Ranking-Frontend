@@ -7,24 +7,23 @@
   attendees: number;
 }
 
-// Array mit allen Events
 const events: Event[] = [
-  { title: 'FOUR PLAY', subtitle: 'House, Electro, Club X', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 999 },
-  { title: 'NIGHT BEATS', subtitle: 'Techno, Bass, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 412 },
-  { title: 'DEEP WAVES', subtitle: 'House, Electro, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 875 },
-  { title: 'BASS LAB', subtitle: 'Techno, Minimal, London', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 653 },
-  { title: 'ELECTRO CITY', subtitle: 'Electro, House, Paris', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 738 },
-  { title: 'TECH VIBES', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 921 },
-  { title: 'MIDNIGHT RAVERS', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 534 },
-  { title: 'SOUNDWAVE', subtitle: 'Electro, House, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 762 },
-  { title: 'BASSLINE NIGHT', subtitle: 'Techno, Minimal, London', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 489 },
-  { title: 'ELECTRIC FUSION', subtitle: 'Electro, House, Paris', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 681 },
-  { title: 'DARKROOM BEATS', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 945 },
-  { title: 'NEON PULSE', subtitle: 'House, Electro, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 812 },
-  { title: 'UNDERGROUND VIBES', subtitle: 'Techno, Minimal, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 679 },
-  { title: 'SYNTH CITY', subtitle: 'Electro, House, London', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 734 },
-  { title: 'TECHNO TEMPLE', subtitle: 'Techno, Dark, Berlin', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 888 },
-  { title: 'BASS MACHINE', subtitle: 'Techno, Minimal, Amsterdam', image: 'https://via.placeholder.com/600x200', tickets: 0, attendees: 563 },
+  { title: 'FOUR PLAY', subtitle: 'House, Electro, Club X', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 999 },
+  { title: 'NIGHT BEATS', subtitle: 'Techno, Bass, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 412 },
+  { title: 'DEEP WAVES', subtitle: 'House, Electro, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 875 },
+  { title: 'BASS LAB', subtitle: 'Techno, Minimal, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 653 },
+  { title: 'ELECTRO CITY', subtitle: 'Electro, House, Paris', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 738 },
+  { title: 'TECH VIBES', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 921 },
+  { title: 'MIDNIGHT RAVERS', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 534 },
+  { title: 'SOUNDWAVE', subtitle: 'Electro, House, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 762 },
+  { title: 'BASSLINE NIGHT', subtitle: 'Techno, Minimal, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 489 },
+  { title: 'ELECTRIC FUSION', subtitle: 'Electro, House, Paris', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 681 },
+  { title: 'DARKROOM BEATS', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 945 },
+  { title: 'NEON PULSE', subtitle: 'House, Electro, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 812 },
+  { title: 'UNDERGROUND VIBES', subtitle: 'Techno, Minimal, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 679 },
+  { title: 'SYNTH CITY', subtitle: 'Electro, House, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 734 },
+  { title: 'TECHNO TEMPLE', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 888 },
+  { title: 'BASS MACHINE', subtitle: 'Techno, Minimal, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 563 },
 ];
 </script>
 
@@ -50,7 +49,7 @@ const events: Event[] = [
 
 <style>
 header h2 {
-  margin-top: 10rem;
+  margin-top: 7rem;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
@@ -67,12 +66,13 @@ header h2 {
 }
 
 .event-card {
+  height: 23vh;
   display: flex;
   align-items: flex-start;
   background: #1a1a1a;
   border-radius: 8px;
   overflow: hidden;
-  border: 2px solid rgba(188, 89, 241, 0.77);
+  border: 2px solid rgba(188, 89, 241, 0.36);
   width: 90%;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
