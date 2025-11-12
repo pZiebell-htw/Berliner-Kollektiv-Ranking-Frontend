@@ -34,12 +34,6 @@ MenuBar,
   max-width: 100%;
 }
 
-.full-bleed {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  max-width: 100%;
-  box-sizing: border-box;
-}
 </style>
 
 

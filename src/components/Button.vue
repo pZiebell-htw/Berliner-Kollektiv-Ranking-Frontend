@@ -64,7 +64,7 @@ const slots = useSlots()
   height: fit-content;
   background-color: #1d2129;
   border-radius: 40px;
-  border: 1px solid #bc59f1;
+  border: 1px solid rgba(188, 89, 241, 0.36);
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
@@ -75,7 +75,7 @@ const slots = useSlots()
 .icon-Container {
   width: 45px;
   height: 45px;
-  background-color: #BC59F1FF;
+  background-color: rgba(188, 89, 241, 0.36);
   display: flex;
   align-items: center;
   justify-content: center;

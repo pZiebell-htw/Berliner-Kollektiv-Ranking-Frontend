@@ -1,4 +1,13 @@
 <script setup lang="ts">
+  import AddButton from '@/components/AddButton.vue'
+  import { useRouter } from 'vue-router'
+
+  const router = useRouter()
+
+  const navigateToAddCollective = () => {
+    router.push('/add')
+  }
+
   interface Event {
   title: string;
   subtitle: string;
@@ -25,14 +34,20 @@ const events: Event[] = [
   { title: 'TECHNO TEMPLE', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 888 },
   { title: 'BASS MACHINE', subtitle: 'Techno, Minimal, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 563 },
 ];
+
+
 </script>
 
 <template>
   <header>
     <h2>Top Ranking Collectives</h2>
   </header>
+  <div class="add-button-container">
+    <AddButton @click="navigateToAddCollective"> </AddButton>
+  </div>
 
   <main class="events-list">
+
     <article class="event-card" v-for="(event, index) in events" :key="index">
       <img :src="event.image" :alt="event.title" class="event-image">
       <div class="event-content">
@@ -48,6 +63,14 @@ const events: Event[] = [
 </template>
 
 <style>
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5%;
+}
+
+
 header h2 {
   margin-top: 7rem;
   text-align: center;
@@ -69,7 +92,7 @@ header h2 {
   height: 23vh;
   display: flex;
   align-items: flex-start;
-  background: #1a1a1a;
+  background: color-mix(in srgb, var(--color-background) 80%, black);
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid rgba(188, 89, 241, 0.36);
