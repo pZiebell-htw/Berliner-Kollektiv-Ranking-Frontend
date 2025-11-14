@@ -16,10 +16,10 @@
   --input-focus: #f8f8f8;
   --font-color: #fefefe;
   --font-color-sub: #7e7e7e;
-  --bg-color: #111;
-  --main-color: rgba(188, 89, 241, 0.77);
+  background: color-mix(in srgb, var(--color-background) 80%, black);
+  --main-color: rgba(64, 48, 73, 0.76);
   padding: 20px;
-  background: var(--bg-color);
+  background: color-mix(in srgb, var(--color-background) 80%, black);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -64,37 +64,6 @@
 
 .input:focus {
   border: 2px solid var(--input-focus);
-}
-
-.login-with {
-  display: flex;
-  gap: 20px;
-}
-
-.button-log {
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  border: 2px solid var(--main-color);
-  background-color: var(--bg-color);
-  box-shadow: 4px 4px var(--main-color);
-  color: var(--font-color);
-  font-size: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  fill: var(--main-color);
-}
-
-.button-log:active, .button-confirm:active {
-  box-shadow: 0px 0px var(--main-color);
-  transform: translate(3px, 3px);
 }
 
 .button-confirm {

@@ -5,6 +5,10 @@
   --font-display: 'Bitcount Prop Single Ink', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* main colour  rgb(139, 94, 164)/ 8B5EA4FF */
+/* secondary colour   rgba(64, 48, 73, 0.76)/ 403049C1 */
+
+
 /* Globale Font-Erzwingung auf alles */
 html, body, #app,
 *,
@@ -129,14 +133,6 @@ a,
   }
 }
 
-
-<<<<<<< HEAD
-=======
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
 }
 
 

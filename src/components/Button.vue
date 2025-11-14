@@ -62,7 +62,7 @@ const slots = useSlots()
   display: flex;
   width: 170px;
   height: fit-content;
-  background-color: #1d2129;
+  background: color-mix(in srgb, var(--color-background) 80%, black);
   border-radius: 40px;
   border: 1px solid rgba(188, 89, 241, 0.36);
   justify-content: space-between;

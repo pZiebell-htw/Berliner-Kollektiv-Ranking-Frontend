@@ -39,7 +39,7 @@ function onSearchKey(e: KeyboardEvent) {
   gap: 12px;
   padding: 0 16px;
   box-sizing: border-box;
-  background-color: rgba(64, 48, 73, 0.76);
+  background-color: rgb(64, 48, 73);
   z-index: 9999;
   border-radius: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);

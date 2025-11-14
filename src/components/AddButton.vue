@@ -22,15 +22,15 @@
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  background-color: rgba(64, 48, 73, 0.76);
+  background: rgba(188, 89, 241, 0.36);
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.add-button:hover {
-  background-color: rgba(64, 48, 73, 0.76);
+button:hover {
+  background: rgba(188, 89, 241, 0.65);
 }
 
 .plus-icon {
@@ -44,7 +44,7 @@
 
 .plus-icon span {
   position: absolute;
-  background-color: rgb(142, 81, 175);
+  background-color: rgb(139, 94, 164);
 }
 
 .plus-icon span:first-child {
