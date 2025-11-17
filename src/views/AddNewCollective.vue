@@ -24,11 +24,10 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 async function submit() {
+  console.log("Submit triggered");
   try {
     await axios.post(`${API_URL}/api/kollektiv`, collective.value)
     alert("Collective added")
-
-    // Navigiere zur Ranking-Seite
     router.push('/ranking')
   } catch (err) {
     console.error(err)
