@@ -1,3 +1,8 @@
+<script setup lang="ts">
+
+</script>
+
+
 <template>
   <!-- From Uiverse.io by andrew-demchenk0 -->
   <div class="wrapper">
@@ -12,7 +17,7 @@
             <form class="flip-card__form" action="">
               <input class="flip-card__input" name="email" placeholder="Email" type="email">
               <input class="flip-card__input" name="password" placeholder="Password" type="password">
-              <button class="flip-card__btn">Let`s go!</button>
+              <router-link to="/ranking" class="flip-card__btn">Lets go!</router-link>
             </form>
           </div>
           <div class="flip-card__back">
@@ -21,8 +26,7 @@
               <input class="flip-card__input" placeholder="Name" type="name">
               <input class="flip-card__input" name="email" placeholder="Email" type="email">
               <input class="flip-card__input" name="password" placeholder="Password" type="password">
-              <button class="flip-card__btn">Confirm!</button>
-            </form>
+              <router-link to="/profile" class="flip-card__btn">Confirm!</router-link>            </form>
           </div>
         </div>
       </label>
@@ -208,11 +212,6 @@
   border: 2px solid var(--input-focus);
 }
 
-.flip-card__btn:active, .button-confirm:active {
-  box-shadow: 0px 0px var(--main-color);
-  transform: translate(3px, 3px);
-}
-
 .flip-card__btn {
   margin: 20px 0 20px 0;
   width: 120px;
@@ -224,9 +223,23 @@
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
 }
+
+.flip-card__btn:hover {
+  background-color: var(--main-color);
+  color: var(--bg-color);
+}
+
+.flip-card__btn:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(3px, 3px);
+}
+
 
 </style>
 
-<script setup lang="ts">
-</script>

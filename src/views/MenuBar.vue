@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import Button from '@/components/Button.vue'
 
 const router = useRouter()
 const search = ref('')
@@ -21,7 +22,7 @@ function onSearchKey(e: KeyboardEvent) {
       <router-link to="/" class="button" aria-label="Home">HOME</router-link>
       <router-link to="/ranking" class="button" aria-label="Ranking">RANKING</router-link>
       <input class="input" name="suche" placeholder="SUCHE" v-model="search" @keydown="onSearchKey">
-      <router-link to="/login" class="button right">PROFILE</router-link>
+      <router-link to="/profile" class="button right">PROFILE</router-link>
     </div>
   </main>
 </template>

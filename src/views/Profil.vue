@@ -7,7 +7,7 @@ interface Post {
 
 const username = 'pziebell';
 const email = 'philipp@ziebell.de';
-const profileImage = 'https://via.placeholder.com/150';
+const profileImage = 'https://cdn-icons-png.flaticon.com/512/9706/9706583.png';
 
 const posts: Post[] = [
   { title: 'First Event', content: 'Had an amazing time at the Berlin club!' },
@@ -41,7 +41,7 @@ const posts: Post[] = [
 <style>
 .profile-header {
   display: flex;
-  align-items: center; /* Vertikal alles in der Mitte ausrichten */
+  align-items: center;
   gap: 1rem;
   padding: 2rem 5%;
   background: color-mix(in srgb, var(--color-background) 80%, black);

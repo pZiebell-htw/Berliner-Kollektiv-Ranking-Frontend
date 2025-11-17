@@ -1,39 +1,45 @@
 <script setup lang="ts">
-  import AddButton from '@/components/AddButton.vue'
-  import { useRouter } from 'vue-router'
+defineOptions({ name: 'RankingView' })
+import AddButton from '@/components/AddButton.vue'
+import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import { API_URL } from '../services/api'
 
-  const router = useRouter()
+// Router
+const router = useRouter()
 
-  const navigateToAddCollective = () => {
-    router.push('/add')
-  }
-
-  interface Event {
-  title: string;
-  subtitle: string;
-  image: string;
-  tickets: number;
-  attendees: number;
+const navigateToAddCollective = () => {
+  router.push('/add')
 }
 
-const events: Event[] = [
-  { title: 'FOUR PLAY', subtitle: 'House, Electro, Club X', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg'},
-  { title: 'NIGHT BEATS', subtitle: 'Techno, Bass, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg'},
-  { title: 'DEEP WAVES', subtitle: 'House, Electro, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg' },
-  { title: 'BASS LAB', subtitle: 'Techno, Minimal, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 653 },
-  { title: 'ELECTRO CITY', subtitle: 'Electro, House, Paris', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 738 },
-  { title: 'TECH VIBES', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 921 },
-  { title: 'MIDNIGHT RAVERS', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 534 },
-  { title: 'SOUNDWAVE', subtitle: 'Electro, House, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 762 },
-  { title: 'BASSLINE NIGHT', subtitle: 'Techno, Minimal, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 489 },
-  { title: 'ELECTRIC FUSION', subtitle: 'Electro, House, Paris', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 681 },
-  { title: 'DARKROOM BEATS', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 945 },
-  { title: 'NEON PULSE', subtitle: 'House, Electro, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 812 },
-  { title: 'UNDERGROUND VIBES', subtitle: 'Techno, Minimal, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 679 },
-  { title: 'SYNTH CITY', subtitle: 'Electro, House, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 734 },
-  { title: 'TECHNO TEMPLE', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 888 },
-  { title: 'BASS MACHINE', subtitle: 'Techno, Minimal, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 563 },
-];
+// Interface inkl. ID
+interface Kollektiv {
+  id: string
+  name: string
+  genre: string
+  bildUrl: string
+  beschreibung: string
+  durchschnittsBewertung: number
+}
+
+const kollektivs = ref<Kollektiv[]>([])
+
+// API-Daten laden
+async function loadKollektivs() {
+  try {
+    const response = await axios.get(`${API_URL}/api/kollektivs`)
+    console.log("Antwort Backend:", response.data)
+
+    kollektivs.value = response.data
+  } catch (err) {
+    console.error("Fehler beim Laden:", err)
+  }
+}
+
+onMounted(() => {
+  loadKollektivs()
+})
 
 
 </script>
@@ -42,24 +48,35 @@ const events: Event[] = [
   <header>
     <h2>Top Ranking Collectives</h2>
   </header>
+
   <div class="add-button-container">
-    <AddButton @click="navigateToAddCollective"> </AddButton>
+    <AddButton @click="navigateToAddCollective" />
   </div>
 
   <main class="events-list">
 
-    <article class="event-card" v-for="(event, index) in events" :key="index">
-      <img :src="event.image" :alt="event.title" class="event-image">
+    <article
+      class="event-card"
+      v-for="kollektiv in kollektivs"
+      :key="kollektiv.id"
+    >
+      <img
+        :src="kollektiv.bildUrl || '/placeholder.png'"
+        :alt="kollektiv.name"
+        class="event-image"
+      />
+
       <div class="event-content">
-        <h3 class="event-title">{{ event.title }}</h3>
-        <p class="event-subtitle">{{ event.subtitle }}</p>
+        <h3 class="event-title">{{ kollektiv.name }}</h3>
+        <p class="event-subtitle">{{ kollektiv.genre }}</p>
+        <p class="event-subtitle">{{ kollektiv.beschreibung }}</p>
       </div>
     </article>
+
   </main>
 </template>
 
 <style>
-
 .add-button-container {
   display: flex;
   justify-content: flex-end;
@@ -141,5 +158,4 @@ header h2 {
 .event-meta .attendees {
   color: #aaa;
 }
-
 </style>
