@@ -21,7 +21,7 @@ function onSearchKey(e: KeyboardEvent) {
       <router-link to="/" class="button" aria-label="Home">HOME</router-link>
       <router-link to="/ranking" class="button" aria-label="Ranking">RANKING</router-link>
       <input class="input" name="suche" placeholder="SUCHE" v-model="search" @keydown="onSearchKey">
-      <router-link to="/login" class="button right">PROFIL</router-link>
+      <router-link to="/login" class="button right">PROFILE</router-link>
     </div>
   </main>
 </template>
