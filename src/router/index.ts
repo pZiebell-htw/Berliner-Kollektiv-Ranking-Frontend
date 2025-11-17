@@ -13,6 +13,7 @@ const router = createRouter({
     { path: '/ranking', name: 'ranking', component: Ranking },
     { path: '/add', name: 'add', component: AddNewCollective },
 
+
   ],
 })
 

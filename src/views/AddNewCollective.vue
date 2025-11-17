@@ -2,6 +2,7 @@
 
 import { ref } from "vue"
 import axios from "axios"
+import { API_URL } from "../services/api.ts"
 
 const genres = [
   "Trance", "Hardtrance", "Techno", "Hardtechno", "Groove",
@@ -9,20 +10,21 @@ const genres = [
   "Tekk", "Hardtekk"
 ]
 
-const form = ref({
+const collective = ref({
   name: "",
-  genre: "Techno",
+  genre: "",
   bildUrl: "",
   beschreibung: ""
-})
+  }
+)
 
 async function submit() {
   try {
-    await axios.post("https://dein-backend-url/kollektiv", form.value)
-    alert("Kollektiv erstellt!")
+    await axios.post(`${API_URL}/api/kollektiv`, collective.value)
+    alert("Collective added")
   } catch (err) {
     console.error(err)
-    alert("Fehler beim Speichern")
+    alert("Error while saving collective")
   }
 }
 
@@ -41,22 +43,22 @@ async function submit() {
       <form @submit.prevent="submit">
 
         <label>Name</label>
-        <input v-model="form.name" required />
+        <input v-model="collective.name" required />
 
         <label>Genre</label>
-        <select v-model="form.genre" required>
+        <select v-model="collective.genre" required>
           <option v-for="g in genres" :key="g" :value="g">
             {{ g }}
           </option>
         </select>
 
         <label>Bild URL</label>
-        <input v-model="form.bildUrl" />
+        <input v-model="collective.bildUrl" />
 
-        <label>Beschreibung</label>
-        <textarea v-model="form.beschreibung"></textarea>
+        <label>Describtion</label>
+        <textarea v-model="collective.beschreibung"></textarea>
 
-        <button type="submit">Erstellen</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   </main>

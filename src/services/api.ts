@@ -1,11 +1,4 @@
-import axios from 'axios';
-import type { AxiosInstance } from 'axios';
+export const API_URL = window.location.hostname === "localhost"
+  ? "http://localhost:8080"
+  : "https://berliner-kollektiv-ranking-js0r.onrender.com";
 
-
-
-const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // Holt URL aus .env.production
-  withCredentials: true, // Optional, falls du Cookies oder Login nutzt
-});
-
-export default api;

@@ -69,16 +69,47 @@ function onSearchKey(e: KeyboardEvent) {
 
 .button:hover,
 .button:focus-visible {
-  transform: translateY(-3px);
   background-color: rgba(255, 255, 255, 0.06);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .button {
-    min-width: 64px;
+    width: auto;
     font-size: 13px;
     height: 34px;
   }
+}
+.input {
+  outline: 0 !important;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  width: auto;
+  max-width: 30vh;
+  height: 36px;
+  border-radius: 5px;
+  padding: 0 12px;
+  background-color: rgba(139, 94, 164, 0.08);
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease-in-out, background-color 0.12s ease;
+  cursor: text;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.input:focus,
+.input:hover {
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 
