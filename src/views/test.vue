@@ -3,7 +3,10 @@
 </script>
 
 <template>
+<button = "class='flip-card__btn">
+  Test Button
 
+</button>
 </template>
 
 <style scoped>

@@ -17,9 +17,9 @@
 }
 
 const events: Event[] = [
-  { title: 'FOUR PLAY', subtitle: 'House, Electro, Club X', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 999 },
-  { title: 'NIGHT BEATS', subtitle: 'Techno, Bass, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 412 },
-  { title: 'DEEP WAVES', subtitle: 'House, Electro, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 875 },
+  { title: 'FOUR PLAY', subtitle: 'House, Electro, Club X', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg'},
+  { title: 'NIGHT BEATS', subtitle: 'Techno, Bass, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg'},
+  { title: 'DEEP WAVES', subtitle: 'House, Electro, Amsterdam', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg' },
   { title: 'BASS LAB', subtitle: 'Techno, Minimal, London', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 653 },
   { title: 'ELECTRO CITY', subtitle: 'Electro, House, Paris', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 738 },
   { title: 'TECH VIBES', subtitle: 'Techno, Dark, Berlin', image: 'https://www.deejay.de/images/xl/8/7//1037887.jpg', tickets: 0, attendees: 921 },
@@ -53,10 +53,6 @@ const events: Event[] = [
       <div class="event-content">
         <h3 class="event-title">{{ event.title }}</h3>
         <p class="event-subtitle">{{ event.subtitle }}</p>
-        <div class="event-meta">
-          <span class="tickets">🎟️ Tickets</span>
-          <span class="attendees">👥 {{ event.attendees }}</span>
-        </div>
       </div>
     </article>
   </main>

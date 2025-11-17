@@ -117,7 +117,6 @@ form {
 
 label {
   margin-top: 12px;
-  color: #ccc;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.85rem;
