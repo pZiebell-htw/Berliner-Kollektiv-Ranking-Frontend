@@ -63,7 +63,6 @@
   top: 0;
   width: 100px;
   text-decoration: underline;
-  color: var(--font-color);
   font-weight: 600;
 }
 
@@ -74,7 +73,6 @@
   top: 0;
   width: 100px;
   text-decoration: none;
-  color: var(--font-color);
   font-weight: 600;
 }
 
@@ -82,6 +80,7 @@
   opacity: 0;
   width: 0;
   height: 0;
+  outline: none;
 }
 
 .slider {
@@ -138,8 +137,6 @@
   position: relative;
   background-color: transparent;
   perspective: 1000px;
-  /* width: 100%;
-  height: 100%; */
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
@@ -182,10 +179,10 @@
 
 .title {
   margin: 20px 0 20px 0;
-  font-size: 25px;
-  font-weight: 900;
+  font-size: 35px;
   text-align: center;
-  color: var(--main-color);
+  font-weight: 700;
+  color: #ff33cc;
 }
 
 .flip-card__input {

@@ -76,6 +76,16 @@ header h2 {
   text-transform: uppercase;
 }
 
+/* CSS */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none; /* Standard entfernen */
+  border: 2px solid #8B5EA4FF;
+}
+
+
 /* Zentrierter Bereich wie events-list */
 .form-container {
   display: flex;
