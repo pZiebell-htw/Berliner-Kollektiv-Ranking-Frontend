@@ -4,6 +4,7 @@ import { ref } from "vue"
 import axios from "axios"
 import { API_URL } from "../services/api.ts"
 
+
 const genres = [
   "Trance", "Hardtrance", "Techno", "Hardtechno", "Groove",
   "House", "Hardhouse", "Gabber", "Hardcore", "Hardstyle",
@@ -47,6 +48,7 @@ async function submit() {
 
         <label>Genre</label>
         <select v-model="collective.genre" required>
+          <option value="" disabled>Bitte auswählen</option>
           <option v-for="g in genres" :key="g" :value="g">
             {{ g }}
           </option>
@@ -55,7 +57,7 @@ async function submit() {
         <label>Bild URL</label>
         <input v-model="collective.bildUrl" />
 
-        <label>Describtion</label>
+        <label>Description</label>
         <textarea v-model="collective.beschreibung"></textarea>
 
         <button type="submit">Add</button>
@@ -117,7 +119,6 @@ form {
 
 label {
   margin-top: 12px;
-  color: #ccc;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.85rem;
@@ -130,7 +131,6 @@ input, select, textarea {
   border-radius: 6px;
   border: 1px solid rgba(188, 89, 241, 0.3);
   background: color-mix(in srgb, var(--color-background) 80%, black);
-  color: #fff;
 }
 
 textarea {
@@ -143,7 +143,6 @@ button {
   margin-top: 20px;
   padding: 0.75rem;
   background: rgba(188, 89, 241, 0.36);
-  color: white;
   border: none;
   border-radius: 6px;
   font-weight: 700;
