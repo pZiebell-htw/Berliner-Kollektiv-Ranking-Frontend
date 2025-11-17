@@ -19,22 +19,15 @@ const collective = ref({
   }
 )
 
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
 async function submit() {
-  console.log("Submit triggered");
   try {
     await axios.post(`${API_URL}/api/kollektiv`, collective.value)
     alert("Collective added")
-    router.push('/ranking')
   } catch (err) {
     console.error(err)
     alert("Error while saving collective")
   }
 }
-
 
 </script>
 
