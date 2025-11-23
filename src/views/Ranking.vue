@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineOptions({ name: 'RankingView' })
+defineOptions({ name: 'Ranking' })
 import AddButton from '@/components/AddButton.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
@@ -40,8 +40,6 @@ async function loadKollektivs() {
 onMounted(() => {
   loadKollektivs()
 })
-
-
 </script>
 
 <template>
@@ -54,24 +52,29 @@ onMounted(() => {
   </div>
 
   <main class="events-list">
-
-    <article
-      class="event-card"
+    <!-- Jeder Kollektiv-Eintrag ist ein klickbarer Link zur Detailseite -->
+    <router-link
       v-for="kollektiv in kollektivs"
       :key="kollektiv.id"
+      :to="{ name: 'kollektivDetail', params: { id: kollektiv.id } }"
+      class="event-card-link"
+      custom
     >
-      <img
-        :src="kollektiv.bildUrl || '/placeholder.png'"
-        :alt="kollektiv.name"
-        class="event-image"
-      />
-
-      <div class="event-content">
-        <h3 class="event-title">{{ kollektiv.name }}</h3>
-        <p class="event-subtitle">{{ kollektiv.genre }}</p>
-        <p class="event-subtitle">{{ kollektiv.beschreibung }}</p>
-      </div>
-    </article>
+      <template #default="{ navigate }">
+        <article class="event-card" @click="navigate">
+          <img
+            :src="kollektiv.bildUrl || '/placeholder.png'"
+            :alt="kollektiv.name"
+            class="event-image"
+          />
+          <div class="event-content">
+            <h3 class="event-title">{{ kollektiv.name }}</h3>
+            <p class="event-subtitle">{{ kollektiv.genre }}</p>
+            <p class="event-subtitle">{{ kollektiv.beschreibung }}</p>
+          </div>
+        </article>
+      </template>
+    </router-link>
 
   </main>
 </template>
@@ -82,7 +85,6 @@ onMounted(() => {
   justify-content: flex-end;
   padding-right: 5%;
 }
-
 
 header h2 {
   margin-top: 7rem;
@@ -141,21 +143,5 @@ header h2 {
   color: #aaa;
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
-}
-
-.event-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #ccc;
-  font-size: 0.85rem;
-}
-
-.event-meta .tickets {
-  color: #ff33cc;
-}
-
-.event-meta .attendees {
-  color: #aaa;
 }
 </style>

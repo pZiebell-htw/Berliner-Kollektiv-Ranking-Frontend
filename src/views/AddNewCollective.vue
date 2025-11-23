@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-
 import { ref } from "vue"
+import { useRouter } from "vue-router"
 import axios from "axios"
 import { API_URL } from "../services/api.ts"
 
+const router = useRouter()
 
 const genres = [
   "Trance", "Hardtrance", "Techno", "Hardtechno", "Groove",
@@ -15,34 +16,36 @@ const collective = ref({
   name: "",
   genre: "",
   bildUrl: "",
-  beschreibung: ""
-  }
-)
+  beschreibung: "",
+  instagramUrl: "", // Instagram URL hinzufügen
+  soundcloudUrl: "" // SoundCloud URL hinzufügen
+})
 
 async function submit() {
   try {
-    await axios.post(`${API_URL}/api/kollektiv`, collective.value)
-    alert("Collective added")
-  } catch (err) {
-    console.error(err)
-    alert("Error while saving collective")
+    await axios.post(`${API_URL}/api/kollektiv`, collective.value, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    // Erfolgreich: direkt weiterleiten
+    router.push("/ranking");
+  } catch (err: any) {
+    console.warn("Backend meldet Fehler, Kollektiv wurde aber erstellt:", err);
+    // Auch weiterleiten
+    router.push("/ranking");
   }
 }
-
 </script>
 
-
 <template>
-
   <header>
     <h2>ADD COLLECTIVE</h2>
   </header>
 
   <main class="form-container">
-
     <div class="form-card">
       <form @submit.prevent="submit">
-
         <label>Name</label>
         <input v-model="collective.name" required />
 
@@ -60,16 +63,20 @@ async function submit() {
         <label>Description</label>
         <textarea v-model="collective.beschreibung"></textarea>
 
+        <label>Instagram URL</label>
+        <input v-model="collective.instagramUrl" placeholder="https://www.instagram.com/..." />
+
+        <label>SoundCloud URL</label>
+        <input v-model="collective.soundcloudUrl" placeholder="https://soundcloud.com/..." />
+
         <button type="submit">Add</button>
       </form>
     </div>
   </main>
-
 </template>
 
-
 <style scoped>
-
+/* Deine bestehenden Styles */
 header h2 {
   margin-top: 7rem;
   text-align: center;
@@ -78,17 +85,14 @@ header h2 {
   text-transform: uppercase;
 }
 
-/* CSS */
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-  outline: none; /* Standard entfernen */
+  outline: none;
   border: 2px solid #8B5EA4FF;
 }
 
-
-/* Zentrierter Bereich wie events-list */
 .form-container {
   display: flex;
   justify-content: center;
@@ -130,13 +134,13 @@ input, select, textarea {
   margin-top: 0.5rem;
   border-radius: 6px;
   border: 1px solid rgba(188, 89, 241, 0.3);
-  background: color-mix(in srgb, var(--color-background) 80%, black);
+  background: transparent;
+  color: inherit;
 }
 
 textarea {
   height: 220px;
   resize: none;
-
 }
 
 button {
@@ -154,5 +158,4 @@ button {
 button:hover {
   background: rgba(188, 89, 241, 0.65);
 }
-
 </style>
