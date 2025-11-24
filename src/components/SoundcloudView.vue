@@ -38,11 +38,12 @@ function next() { widget?.next() }
     <iframe
       :id="widgetId"
       width="100%"
-      height="166"
+      height="300"
       scrolling="no"
       frameborder="no"
-      :src="`https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudUrl)}&show_artwork=true`"
+      :src="`https://w.soundcloud.com/player/?url=${encodeURIComponent(props.soundcloudUrl)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false`"
     ></iframe>
+    <!--  &show_teaser=true&visual=true dann is da soudncloud pfp bild-->
 
     <div class="player-controls">
       <button @click="prev">Prev</button>

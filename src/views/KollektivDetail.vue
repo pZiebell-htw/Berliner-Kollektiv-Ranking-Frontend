@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import axios from 'axios'
 import { API_URL } from '../services/api'
 import SoundcloudView from '@/components/SoundcloudView.vue'
-import InstagramButton from '@/components/InstagramButton.vue'
+
 
 interface Kollektiv {
   id: string
@@ -37,9 +37,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    <h2>{{ kollektiv?.name }}</h2>
-  </header>
 
   <main class="kollektiv-detail">
     <div v-if="kollektiv" class="kollektiv-container">
@@ -48,26 +45,43 @@ onMounted(() => {
       </div>
 
       <div class="kollektiv-info">
+        <h2 class="kollektiv-name">{{ kollektiv?.name }}</h2>
         <h3 class="kollektiv-genre">{{ kollektiv.genre }}</h3>
         <p class="kollektiv-description">{{ kollektiv.beschreibung }}</p>
-        <p class="kollektiv-rating">
-          <strong>Durchschnittsbewertung:</strong> {{ kollektiv.durchschnittsBewertung }}
-        </p>
-        <div v-if="kollektiv.instagramUrl" class="social-buttons">
-          <a :href="kollektiv.instagramUrl" target="_blank" class="social-button instagram">
-            Instagram
-          </a>
+
+        <div class="rating-social-row">
+          <p class="kollektiv-rating"> Durchschnittsbewertung: {{ kollektiv.durchschnittsBewertung }} </p>
+          <div v-if="kollektiv.instagramUrl" class="social-buttons">
+            <a :href="kollektiv.instagramUrl" target="_blank" class="social-button instagram"> Instagram </a>
+          </div>
         </div>
 
         <SoundcloudView v-if="kollektiv.soundcloudUrl" :soundcloud-url="kollektiv.soundcloudUrl" />
-
       </div>
     </div>
   </main>
 </template>
 
 <style scoped>
+
+.rating-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.kollektiv-rating {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8B5EA4;
+  margin: 0;
+}
+
+
 .kollektiv-detail {
+  margin-top: 4rem;
   padding: 2rem;
 }
 
@@ -110,14 +124,23 @@ onMounted(() => {
   color: #8B5EA4;
 }
 
+.kollektiv-name {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8B5EA4;
+}
+
 .kollektiv-description {
   font-size: 1rem;
   color: #888;
 }
 
 .kollektiv-rating {
-  font-weight: 600;
-  color: #444;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8B5EA4;
 }
 
 .social-buttons {

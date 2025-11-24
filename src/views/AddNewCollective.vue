@@ -121,7 +121,7 @@ button:focus {
 
 .form-card {
   width: 35%;
-  min-height: 70vh;
+  min-height: auto;
   padding: 1.5rem;
   background: color-mix(in srgb, var(--color-background) 80%, black);
   border-radius: 8px;
