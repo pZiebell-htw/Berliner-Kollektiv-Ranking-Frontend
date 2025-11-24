@@ -3,6 +3,13 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import axios from "axios"
 import { API_URL } from "../services/api.ts"
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+
+function autoResize(event: Event) {
+  const textarea = event.target as HTMLTextAreaElement
+  textarea.style.height = 'auto'
+  textarea.style.height = textarea.scrollHeight + 'px'
+}
 
 const router = useRouter()
 
@@ -51,23 +58,29 @@ async function submit() {
 
         <label>Genre</label>
         <select v-model="collective.genre" required>
-          <option value="" disabled>Bitte auswählen</option>
+          <option value="" disabled>Select</option>
           <option v-for="g in genres" :key="g" :value="g">
             {{ g }}
           </option>
         </select>
 
-        <label>Bild URL</label>
-        <input v-model="collective.bildUrl" />
-
-        <label>Description</label>
-        <textarea v-model="collective.beschreibung"></textarea>
+        <label>Profil Picture URL</label>
+        <input v-model="collective.bildUrl" required />
 
         <label>Instagram URL</label>
-        <input v-model="collective.instagramUrl" placeholder="https://www.instagram.com/..." />
+        <input v-model="collective.instagramUrl" placeholder="https://www.instagram.com/..." required />
 
         <label>SoundCloud URL</label>
-        <input v-model="collective.soundcloudUrl" placeholder="https://soundcloud.com/..." />
+        <input v-model="collective.soundcloudUrl" placeholder="https://soundcloud.com/..." required />
+
+        <label>Describtion</label>
+        <textarea
+          v-model="collective.beschreibung"
+          @input="autoResize"
+          ref="textareaRef"
+          required
+        ></textarea>
+
 
         <button type="submit">Add</button>
       </form>
@@ -76,7 +89,7 @@ async function submit() {
 </template>
 
 <style scoped>
-/* Deine bestehenden Styles */
+
 header h2 {
   margin-top: 7rem;
   text-align: center;
@@ -139,9 +152,10 @@ input, select, textarea {
 }
 
 textarea {
-  height: 220px;
   resize: none;
+  overflow: hidden;
 }
+
 
 button {
   margin-top: 20px;
@@ -158,4 +172,5 @@ button {
 button:hover {
   background: rgba(188, 89, 241, 0.65);
 }
+
 </style>

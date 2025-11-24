@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import { API_URL } from '../services/api'
+import SoundcloudView from '@/components/SoundcloudView.vue'
+import InstagramButton from '@/components/InstagramButton.vue'
 
 interface Kollektiv {
   id: string
@@ -52,18 +54,15 @@ onMounted(() => {
           <strong>Durchschnittsbewertung:</strong> {{ kollektiv.durchschnittsBewertung }}
         </p>
 
-        <!-- Buttons für Instagram und SoundCloud -->
+        <InstagramButton> </InstagramButton>
         <div v-if="kollektiv.instagramUrl" class="social-buttons">
           <a :href="kollektiv.instagramUrl" target="_blank" class="social-button instagram">
             Instagram
           </a>
         </div>
 
-        <div v-if="kollektiv.soundcloudUrl" class="social-buttons">
-          <a :href="kollektiv.soundcloudUrl" target="_blank" class="social-button soundcloud">
-            SoundCloud
-          </a>
-        </div>
+        <SoundcloudView v-if="kollektiv.soundcloudUrl" :soundcloud-url="kollektiv.soundcloudUrl" />
+
       </div>
     </div>
   </main>
@@ -134,16 +133,15 @@ onMounted(() => {
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
-  color: white;
   text-decoration: none;
   width: max-content;
   text-align: center;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 /* Instagram Button */
 .social-button.instagram {
   background: #E1306C;
+  width: 180px;
 }
 
 .social-button.instagram:hover {
@@ -152,14 +150,5 @@ onMounted(() => {
   transform: scale(1.05);
 }
 
-/* SoundCloud Button */
-.social-button.soundcloud {
-  background: #FF5500;
-}
 
-.social-button.soundcloud:hover {
-  background: #FF6A33;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transform: scale(1.05);
-}
 </style>
