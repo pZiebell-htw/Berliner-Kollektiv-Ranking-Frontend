@@ -18,6 +18,7 @@ defineProps<{
 </template>
 
 <style scoped>
+
 .instagram-link {
   text-decoration: none;
 }
@@ -63,12 +64,5 @@ defineProps<{
   transition: all .3s;
 }
 
-.Btn:hover .gradientBG {
-  transform: rotate(35deg);
-  transform-origin: bottom;
-}
 
-.Btn:hover .svgContainer {
-  background-color: rgba(156, 156, 156, 0.466);
-}
 </style>

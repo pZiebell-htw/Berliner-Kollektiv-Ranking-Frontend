@@ -7,9 +7,16 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 function autoResize(event: Event) {
   const textarea = event.target as HTMLTextAreaElement
+  const start = textarea.selectionStart
+  const end = textarea.selectionEnd
+
   textarea.style.height = 'auto'
   textarea.style.height = textarea.scrollHeight + 'px'
+
+  // Cursor-Position wiederherstellen
+  textarea.setSelectionRange(start, end)
 }
+
 
 const router = useRouter()
 
@@ -37,9 +44,8 @@ async function submit() {
     });
     // Erfolgreich: direkt weiterleiten
     router.push("/ranking");
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.warn("Backend meldet Fehler, Kollektiv wurde aber erstellt:", err);
-    // Auch weiterleiten
     router.push("/ranking");
   }
 }
@@ -68,10 +74,10 @@ async function submit() {
         <input v-model="collective.bildUrl" required />
 
         <label>Instagram URL</label>
-        <input v-model="collective.instagramUrl" placeholder="https://www.instagram.com/..." required />
+        <input v-model="collective.instagramUrl" required />
 
         <label>SoundCloud URL</label>
-        <input v-model="collective.soundcloudUrl" placeholder="https://soundcloud.com/..." required />
+        <input v-model="collective.soundcloudUrl" required />
 
         <label>Describtion</label>
         <textarea

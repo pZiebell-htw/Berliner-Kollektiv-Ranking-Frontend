@@ -122,8 +122,8 @@ header h2 {
 }
 
 .event-image {
-  width: 200px;
-  height: auto;
+  width: auto;
+  height: 23vh;
   object-fit: cover;
 }
 

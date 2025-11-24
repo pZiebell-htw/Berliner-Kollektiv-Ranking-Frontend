@@ -53,8 +53,6 @@ onMounted(() => {
         <p class="kollektiv-rating">
           <strong>Durchschnittsbewertung:</strong> {{ kollektiv.durchschnittsBewertung }}
         </p>
-
-        <InstagramButton> </InstagramButton>
         <div v-if="kollektiv.instagramUrl" class="social-buttons">
           <a :href="kollektiv.instagramUrl" target="_blank" class="social-button instagram">
             Instagram
@@ -149,6 +147,5 @@ onMounted(() => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
 }
-
 
 </style>
