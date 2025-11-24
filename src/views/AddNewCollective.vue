@@ -3,6 +3,7 @@
 import { ref } from "vue"
 import axios from "axios"
 import { API_URL } from "../services/api.ts"
+import router from '@/router'
 
 
 const genres = [
@@ -15,19 +16,30 @@ const collective = ref({
   name: "",
   genre: "",
   bildUrl: "",
-  beschreibung: ""
+  beschreibung: "",
+  soundcloudUrl: "",
+  instagramUrl: "",
   }
 )
 
 async function submit() {
   try {
     await axios.post(`${API_URL}/api/kollektiv`, collective.value)
-    alert("Collective added")
+    router.push('/ranking')
   } catch (err) {
     console.error(err)
     alert("Error while saving collective")
   }
 }
+
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+
+function autoResize(event: Event) {
+  const textarea = event.target as HTMLTextAreaElement
+  textarea.style.height = 'auto'
+  textarea.style.height = textarea.scrollHeight + 'px'
+}
+
 
 </script>
 
@@ -54,11 +66,18 @@ async function submit() {
           </option>
         </select>
 
-        <label>Bild URL</label>
-        <input v-model="collective.bildUrl" />
+        <label>Important Links</label>
+        <input v-model="collective.bildUrl" placeholder="Profile picture URL" required />
+        <input v-model="collective.soundcloudUrl" placeholder="Soundcloud URL"  />
+        <input v-model="collective.instagramUrl" placeholder="Instagram URL" />
 
         <label>Description</label>
-        <textarea v-model="collective.beschreibung"></textarea>
+        <textarea
+          v-model="collective.beschreibung"
+          required
+          @input="autoResize"
+          ref="textareaRef"
+        ></textarea>
 
         <button type="submit">Add</button>
       </form>
@@ -134,10 +153,12 @@ input, select, textarea {
 }
 
 textarea {
-  height: 220px;
+  height: auto;
+  min-height: 80px;
+  overflow: hidden;
   resize: none;
-
 }
+
 
 button {
   margin-top: 20px;

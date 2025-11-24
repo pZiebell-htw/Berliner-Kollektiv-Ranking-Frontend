@@ -20,17 +20,15 @@ interface Kollektiv {
   genre: string
   bildUrl: string
   beschreibung: string
-  durchschnittsBewertung: number
+  soundcloudUrl: string
+  instgramUrl: string
 }
 
 const kollektivs = ref<Kollektiv[]>([])
 
-// API-Daten laden
 async function loadKollektivs() {
   try {
     const response = await axios.get(`${API_URL}/api/kollektivs`)
-    console.log("Antwort Backend:", response.data)
-
     kollektivs.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden:", err)
@@ -39,7 +37,8 @@ async function loadKollektivs() {
 
 onMounted(() => {
   loadKollektivs()
-})
+  }
+)
 
 
 </script>

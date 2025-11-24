@@ -39,6 +39,7 @@ const posts: Post[] = [
 </template>
 
 <style>
+
 .profile-header {
   display: flex;
   align-items: center;
