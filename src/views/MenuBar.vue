@@ -163,17 +163,4 @@ function onSearchKey(e: KeyboardEvent) {
   }
 }
 
-/* ✅ Extrem kleine Displays (< 360px) */
-@media (max-width: 360px) {
-  .button {
-    min-width: 45px;
-    font-size: 11px;
-  }
-
-  .input {
-    display: none; /* ← Suchfeld wird ausgeblendet */
-  }
-}
-
-
 </style>

@@ -173,48 +173,4 @@ button:hover {
   background: rgba(188, 89, 241, 0.65);
 }
 
-/* ✅ Tablets & kleine Laptops (< 768px) */
-@media (max-width: 1000px) {
-  header h2 {
-    margin-top: 5rem;
-    font-size: 1.2rem;
-  }
-
-  .form-card {
-    width: 60%;
-    padding: 1.25rem;
-  }
-}
-
-/* ✅ Sehr kleine Handys (< 480px) */
-@media (max-width: 480px) {
-  header h2 {
-    margin-top: 4rem;
-    font-size: 1rem;
-  }
-
-  .form-container {
-    width: 95%;
-    margin: 1rem auto;
-  }
-
-  .form-card {
-    width: 95%;
-    padding: 1rem;
-  }
-
-  label {
-    font-size: 0.75rem;
-  }
-
-  input, select, textarea {
-    padding: 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  button {
-    padding: 0.6rem;
-    font-size: 0.9rem;
-  }
-}
 </style>
