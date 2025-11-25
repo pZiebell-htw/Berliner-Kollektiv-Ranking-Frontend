@@ -150,4 +150,95 @@ header h2 {
   font-size: 0.9rem;
 }
 
+/* ✅ Tablets & kleine Laptops (< 768px) */
+@media (max-width: 768px) {
+  .add-button-container {
+    padding-right: 2.5%;
+    transform: scale(0.80);
+    transform-origin: right center;
+  }
+
+  header h2 {
+    margin-top: 5rem;
+    font-size: 1.2rem;
+  }
+
+  .kollektivs-list {
+    width: 100%;
+  }
+
+  .kollektiv-card {
+    height: auto;
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .kollektiv-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+
+  .kollektiv-content {
+    padding: 0.75rem;
+  }
+
+  .kollektiv-title {
+    font-size: 1rem;
+  }
+
+  .kollektiv-genre {
+    font-size: 0.85rem;
+  }
+
+  .kollektiv-describtion {
+    display: none;
+  }
+}
+
+/* ✅ Sehr kleine Handys (< 480px) */
+@media (max-width: 480px) {
+  .add-button-container {
+    padding-right: 2.5%;
+    transform: scale(0.60);
+    transform-origin: right center; /* ← Skaliert von rechts aus */
+  }
+
+  header h2 {
+    margin-top: 4rem;
+    font-size: 1rem;
+  }
+
+  .kollektivs-list {
+    width: 95%;
+    gap: 0.75rem;
+  }
+
+  .kollektiv-card {
+    width: 95%;
+  }
+
+  .kollektiv-image {
+    max-height: 150px;
+  }
+
+  .kollektiv-content {
+    padding: 0.5rem;
+  }
+
+  .kollektiv-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .kollektiv-genre {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .kollektiv-describtion {
+    display: none;
+  }
+}
+
 </style>
