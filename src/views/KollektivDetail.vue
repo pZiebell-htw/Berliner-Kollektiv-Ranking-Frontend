@@ -99,14 +99,12 @@ onMounted(() => {
 }
 
 .kollektiv-image-container {
-  flex: 0 0 300px;
+  width: 18vw;
   height: auto;
 }
 
 .kollektiv-image {
   width: 100%;
-  height: auto;
-  object-fit: cover;
   border-radius: 8px;
 }
 
@@ -169,6 +167,75 @@ onMounted(() => {
   background: #C13584;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
+}
+
+/* ✅ Tablets & Handys (< 768px) */
+@media (max-width: 768px) {
+  .kollektiv-container {
+    flex-direction: column;
+    width: 90%;
+    gap: 1rem;
+  }
+
+  .kollektiv-image-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .kollektiv-name {
+    font-size: 1.5rem; /* ← kleiner als 2rem */
+  }
+
+  .kollektiv-genre {
+    font-size: 1rem; /* ← kleiner als 1.2rem */
+  }
+
+  .kollektiv-description {
+    font-size: 0.9rem; /* ← kleiner als 1rem */
+  }
+
+  .kollektiv-rating {
+    font-size: 1rem; /* ← kleiner als 1.2rem */
+  }
+
+  .rating-social-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .social-button.instagram {
+    width: 100%;
+  }
+}
+
+/* ✅ Sehr kleine Handys (< 480px) */
+@media (max-width: 480px) {
+  .kollektiv-container {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .kollektiv-name {
+    font-size: 1.2rem; /* ← noch kleiner */
+  }
+
+  .kollektiv-genre {
+    font-size: 0.9rem;
+  }
+
+  .kollektiv-description {
+    font-size: 0.85rem;
+  }
+
+  .kollektiv-rating {
+    font-size: 0.9rem;
+  }
+
+  .kollektiv-image-container {
+    max-width: 300px;
+  }
 }
 
 </style>

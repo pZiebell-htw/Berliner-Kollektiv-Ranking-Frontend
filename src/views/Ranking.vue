@@ -51,31 +51,29 @@ onMounted(() => {
     <AddButton @click="navigateToAddCollective" />
   </div>
 
-  <main class="events-list">
-    <!-- Jeder Kollektiv-Eintrag ist ein klickbarer Link zur Detailseite -->
+  <main class="kollektivs-list">
     <router-link
       v-for="kollektiv in kollektivs"
       :key="kollektiv.id"
       :to="{ name: 'kollektivDetail', params: { id: kollektiv.id } }"
-      class="event-card-link"
+      class="kollektiv-card-link"
       custom
     >
       <template #default="{ navigate }">
-        <article class="event-card" @click="navigate">
+        <article class="kollektiv-card" @click="navigate">
           <img
             :src="kollektiv.bildUrl || '/placeholder.png'"
             :alt="kollektiv.name"
-            class="event-image"
+            class="kollektiv-image"
           />
-          <div class="event-content">
-            <h3 class="event-title">{{ kollektiv.name }}</h3>
-            <p class="event-subtitle">{{ kollektiv.genre }}</p>
-            <p class="event-subtitle">{{ kollektiv.beschreibung }}</p>
+          <div class="kollektiv-content">
+            <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
+            <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
+            <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
           </div>
         </article>
       </template>
     </router-link>
-
   </main>
 </template>
 
@@ -94,7 +92,7 @@ header h2 {
   text-transform: uppercase;
 }
 
-.events-list {
+.kollektivs-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -103,7 +101,7 @@ header h2 {
   margin: 2rem auto;
 }
 
-.event-card {
+.kollektiv-card {
   height: 23vh;
   display: flex;
   align-items: flex-start;
@@ -115,24 +113,25 @@ header h2 {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.event-card:hover {
+.kollektiv-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   cursor: pointer;
 }
 
-.event-image {
+.kollektiv-image {
   width: auto;
   height: 23vh;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
-.event-content {
+.kollektiv-content {
   padding: 1rem;
   flex: 1;
 }
 
-.event-title {
+.kollektiv-title {
   font-size: 1.2rem;
   font-weight: 800;
   margin-bottom: 0.25rem;
@@ -140,9 +139,106 @@ header h2 {
   color: #fff;
 }
 
-.event-subtitle {
+.kollektiv-genre {
   color: #aaa;
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
 }
+
+.kollektiv-describtion {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* ✅ Tablets & kleine Laptops (< 768px) */
+@media (max-width: 768px) {
+  .add-button-container {
+    padding-right: 2.5%;
+    transform: scale(0.80);
+    transform-origin: right center;
+  }
+
+  header h2 {
+    margin-top: 5rem;
+    font-size: 1.2rem;
+  }
+
+  .kollektivs-list {
+    width: 100%;
+  }
+
+  .kollektiv-card {
+    height: auto;
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .kollektiv-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+
+  .kollektiv-content {
+    padding: 0.75rem;
+  }
+
+  .kollektiv-title {
+    font-size: 1rem;
+  }
+
+  .kollektiv-genre {
+    font-size: 0.85rem;
+  }
+
+  .kollektiv-describtion {
+    display: none;
+  }
+}
+
+/* ✅ Sehr kleine Handys (< 480px) */
+@media (max-width: 480px) {
+  .add-button-container {
+    padding-right: 2.5%;
+    transform: scale(0.60);
+    transform-origin: right center; /* ← Skaliert von rechts aus */
+  }
+
+  header h2 {
+    margin-top: 4rem;
+    font-size: 1rem;
+  }
+
+  .kollektivs-list {
+    width: 95%;
+    gap: 0.75rem;
+  }
+
+  .kollektiv-card {
+    width: 95%;
+  }
+
+  .kollektiv-image {
+    max-height: 150px;
+  }
+
+  .kollektiv-content {
+    padding: 0.5rem;
+  }
+
+  .kollektiv-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .kollektiv-genre {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .kollektiv-describtion {
+    display: none;
+  }
+}
+
 </style>
