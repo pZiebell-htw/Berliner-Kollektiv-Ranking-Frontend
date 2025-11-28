@@ -173,7 +173,6 @@ button:hover {
   background: rgba(188, 89, 241, 0.65);
 }
 
-/* ✅ Tablets & kleine Laptops (< 768px) */
 @media (max-width: 1000px) {
   header h2 {
     margin-top: 5rem;
@@ -186,7 +185,6 @@ button:hover {
   }
 }
 
-/* ✅ Sehr kleine Handys (< 480px) */
 @media (max-width: 480px) {
   header h2 {
     margin-top: 4rem;

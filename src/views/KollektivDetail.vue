@@ -6,6 +6,8 @@ import { API_URL } from '../services/api'
 import SoundcloudView from '@/components/SoundcloudView.vue'
 
 
+
+
 interface Kollektiv {
   id: string
   name: string
@@ -105,6 +107,7 @@ onMounted(() => {
 
 .kollektiv-image {
   width: 100%;
+  height: auto;
   border-radius: 8px;
 }
 
