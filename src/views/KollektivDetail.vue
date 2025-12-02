@@ -102,7 +102,6 @@ onMounted(() => {
 
 .kollektiv-image-container {
   width: 18vw;
-  height: auto;
 }
 
 .kollektiv-image {
