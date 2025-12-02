@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import InstaButton from '@/components/InstaButton.vue'
 
 defineOptions({ name: 'Ranking' })
 import AddButton from '@/components/AddButton.vue'
