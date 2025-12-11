@@ -53,7 +53,7 @@ onMounted(() => {
     <router-link
       v-for="kollektiv in kollektivs"
       :key="kollektiv.id"
-      :to="{ name: 'kollektivDetail', params: { id: kollektiv.id } }"
+      :to="{ name: 'kollektivDetail', params: { id: String(kollektiv.id) } }"
       class="kollektiv-card-link"
       custom
     >
@@ -70,13 +70,13 @@ onMounted(() => {
             <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
           </div>
         </article>
-
       </template>
     </router-link>
   </main>
 </template>
 
 <style>
+/* -- dein CSS unverändert -- */
 .add-button-container {
   display: flex;
   justify-content: flex-end;
