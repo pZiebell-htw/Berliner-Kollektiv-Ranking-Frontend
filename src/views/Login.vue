@@ -240,6 +240,5 @@
   transform: translate(3px, 3px);
 }
 
-
 </style>
 

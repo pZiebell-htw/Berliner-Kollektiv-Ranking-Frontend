@@ -50,27 +50,28 @@ onMounted(() => {
   </div>
 
   <main class="kollektivs-list">
+    <div v-if="loading">Lade Collectives…</div>
+    <div v-else-if="error" class="error">Fehler: {{ error }}</div>
+    <div v-else-if="kollektivs.length === 0">Keine Collectives gefunden.</div>
+
     <router-link
       v-for="kollektiv in kollektivs"
       :key="kollektiv.id"
       :to="{ name: 'kollektivDetail', params: { id: kollektiv.id } }"
       class="kollektiv-card-link"
-      custom
     >
-      <template #default="{ navigate }">
-        <article class="kollektiv-card" @click="navigate">
-          <img
-            :src="kollektiv.bildUrl || '/placeholder.png'"
-            :alt="kollektiv.name"
-            class="kollektiv-image"
-          />
-          <div class="kollektiv-content">
-            <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
-            <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
-            <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
-          </div>
-        </article>
-      </template>
+      <article class="kollektiv-card">
+        <img
+          :src="kollektiv.bildUrl || '/placeholder.png'"
+          :alt="kollektiv.name"
+          class="kollektiv-image"
+        />
+        <div class="kollektiv-content">
+          <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
+          <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
+          <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
+        </div>
+      </article>
     </router-link>
   </main>
 </template>
