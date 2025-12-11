@@ -1,20 +1,18 @@
 <script setup lang="ts">
 
-defineOptions({ name: 'Ranking' })
+defineOptions({ name: 'RankingView' })
 import AddButton from '@/components/AddButton.vue'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { API_URL } from '../services/api'
 
-// Router
 const router = useRouter()
 
 const navigateToAddCollective = () => {
   router.push('/add')
 }
 
-// Interface inkl. ID
 interface Kollektiv {
   id: string
   name: string
@@ -26,7 +24,6 @@ interface Kollektiv {
 
 const kollektivs = ref<Kollektiv[]>([])
 
-// API-Daten laden
 async function loadKollektivs() {
   try {
     const response = await axios.get(`${API_URL}/api/kollektivs`)
@@ -151,7 +148,6 @@ header h2 {
   font-size: 0.9rem;
 }
 
-/* ✅ Tablets & kleine Laptops (< 768px) */
 @media (max-width: 768px) {
   .add-button-container {
     padding-right: 2.5%;
@@ -197,12 +193,11 @@ header h2 {
   }
 }
 
-/* ✅ Sehr kleine Handys (< 480px) */
 @media (max-width: 480px) {
   .add-button-container {
     padding-right: 2.5%;
     transform: scale(0.60);
-    transform-origin: right center; /* ← Skaliert von rechts aus */
+    transform-origin: right center;
   }
 
   header h2 {

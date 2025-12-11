@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '@/views/Login.vue'
 import AddNewCollective from '@/views/AddNewCollective.vue'
 import Profil from '@/views/Profil.vue'
-import Ranking from '@/views/Ranking.vue'
+import RankingView from '@/views/RankingView.vue'
 import KollektivDetail from '@/views/KollektivDetail.vue'
 
 const router = createRouter({
@@ -13,7 +13,7 @@ const router = createRouter({
     { path: '/login', name: 'login', component: Login },
     { path: '/profile', name: 'profile', component: Profil },
     { path: '/add', name: 'add', component: AddNewCollective },
-    { path: '/ranking', name: 'ranking', component: Ranking },
+    { path: '/ranking', name: 'ranking', component: RankingView },
     { path: '/kollektiv/:id', name: 'kollektivDetail', component: KollektivDetail }, // Detailseite
   ],
 })
