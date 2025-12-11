@@ -36,16 +36,16 @@ const collective = ref({
 async function submit() {
   try {
     await axios.post(`${API_URL}/api/kollektiv`, collective.value, {
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: { "Content-Type": "application/json" }
     });
-    router.push("/ranking");
+    // Navigiert zur Ranking-Seite und hängt einen Reload-Parameter an
+    router.push({ path: "/ranking", query: { reload: new Date().getTime() } });
   } catch (err: unknown) {
     console.warn("Backend meldet Fehler, Kollektiv wurde aber erstellt:", err);
-    router.push("/ranking");
+    router.push({ path: "/ranking", query: { reload: new Date().getTime() } });
   }
 }
+
 </script>
 
 <template>
