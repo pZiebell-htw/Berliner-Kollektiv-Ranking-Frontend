@@ -31,6 +31,7 @@ function loadSoundCloudWidget() {
 
 function prev() { widget?.prev() }
 function next() { widget?.next() }
+
 </script>
 
 <template>

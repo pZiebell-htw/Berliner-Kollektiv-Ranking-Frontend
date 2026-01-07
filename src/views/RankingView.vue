@@ -7,6 +7,8 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { API_URL } from '../services/api'
 
+
+
 const router = useRouter()
 
 const navigateToAddCollective = () => {
@@ -32,6 +34,22 @@ async function loadKollektivs() {
     kollektivs.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden:", err)
+  }
+}
+
+async function deleteKollektiv(id: number) {
+  const password = prompt("Bitte Passwort eingeben, um das Kollektiv zu löschen:")
+
+  if (password !== "12345") {
+    alert("Falsches Passwort")
+    return
+  }
+
+  try {
+    await axios.delete(`${API_URL}/api/kollektivs/${id}`)
+    kollektivs.value = kollektivs.value.filter(k => k.id !== id)
+  } catch (err) {
+    console.error("Fehler beim Löschen:", err)
   }
 }
 
@@ -64,11 +82,19 @@ onMounted(() => {
             :alt="kollektiv.name"
             class="kollektiv-image"
           />
+
           <div class="kollektiv-content">
             <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
             <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
             <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
           </div>
+          <button
+            class="delete-button"
+            type="button"
+            @click.stop.prevent="deleteKollektiv(kollektiv.id)"
+          >
+            Delete
+          </button>
         </article>
       </template>
     </router-link>
@@ -76,7 +102,23 @@ onMounted(() => {
 </template>
 
 <style>
-/* -- dein CSS unverändert -- */
+
+
+.delete-button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+
+  background: rgba(64, 48, 73, 0.92);
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+
 .add-button-container {
   display: flex;
   justify-content: flex-end;
@@ -101,6 +143,7 @@ header h2 {
 }
 
 .kollektiv-card {
+  position: relative;
   height: 23vh;
   display: flex;
   align-items: flex-start;
@@ -119,7 +162,7 @@ header h2 {
 }
 
 .kollektiv-image {
-  width: auto;
+  width: 23vh;
   height: 23vh;
   object-fit: cover;
   flex-shrink: 0;
@@ -147,95 +190,6 @@ header h2 {
 .kollektiv-describtion {
   color: #aaa;
   font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-  .add-button-container {
-    padding-right: 2.5%;
-    transform: scale(0.80);
-    transform-origin: right center;
-  }
-
-  header h2 {
-    margin-top: 5rem;
-    font-size: 1.2rem;
-  }
-
-  .kollektivs-list {
-    width: 100%;
-  }
-
-  .kollektiv-card {
-    height: auto;
-    flex-direction: column;
-    width: 95%;
-  }
-
-  .kollektiv-image {
-    width: 100%;
-    height: auto;
-    max-height: 200px;
-  }
-
-  .kollektiv-content {
-    padding: 0.75rem;
-  }
-
-  .kollektiv-title {
-    font-size: 1rem;
-  }
-
-  .kollektiv-genre {
-    font-size: 0.85rem;
-  }
-
-  .kollektiv-describtion {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .add-button-container {
-    padding-right: 2.5%;
-    transform: scale(0.60);
-    transform-origin: right center;
-  }
-
-  header h2 {
-    margin-top: 4rem;
-    font-size: 1rem;
-  }
-
-  .kollektivs-list {
-    width: 95%;
-    gap: 0.75rem;
-  }
-
-  .kollektiv-card {
-    width: 95%;
-  }
-
-  .kollektiv-image {
-    max-height: 150px;
-  }
-
-  .kollektiv-content {
-    padding: 0.5rem;
-  }
-
-  .kollektiv-title {
-    font-size: 0.9rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .kollektiv-genre {
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .kollektiv-describtion {
-    display: none;
-  }
 }
 
 </style>

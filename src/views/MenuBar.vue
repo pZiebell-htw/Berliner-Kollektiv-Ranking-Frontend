@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Button from '@/components/Button.vue'
 
 const router = useRouter()
 const search = ref('')
@@ -33,7 +32,7 @@ function onSearchKey(e: KeyboardEvent) {
   top: 0;
   left: 0;
   width: 100%;
-  height: 56px;
+  height: 5vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;

@@ -17,6 +17,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "apify-client": "^2.21.0",
     "axios": "^1.13.2",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1"
