@@ -16,6 +16,14 @@ function autoResize(event: Event) {
   textarea.setSelectionRange(start, end)
 }
 
+function userIdFromStorage(): string | null {
+  const user = localStorage.getItem("user");
+  if (!user) return null;
+  const parsed = JSON.parse(user);
+  return parsed.id?.toString() || null;  // ID aus dem gespeicherten User-Objekt
+}
+
+
 const router = useRouter()
 
 const genres = [
@@ -30,21 +38,24 @@ const collective = ref({
   bildUrl: "",
   beschreibung: "",
   instagramUrl: "",
-  soundcloudUrl: ""
+  soundcloudUrl: "",
+  userId: userIdFromStorage()
 })
 
 async function submit() {
   try {
-    await axios.post(`${API_URL}/api/kollektiv`, collective.value, {
-      headers: { "Content-Type": "application/json" }
-    });
-    // Navigiert zur Ranking-Seite und hängt einen Reload-Parameter an
+    await axios.post(
+      `${API_URL}/api/createKollektiv?userId=${collective.value.userId}`,
+      collective.value,
+      { headers: { "Content-Type": "application/json" } }
+    );
     router.push({ path: "/ranking", query: { reload: new Date().getTime() } });
   } catch (err: unknown) {
-    console.warn("Backend meldet Fehler, Kollektiv wurde aber erstellt:", err);
+    console.warn("Error", err);
     router.push({ path: "/ranking", query: { reload: new Date().getTime() } });
   }
 }
+
 
 </script>
 

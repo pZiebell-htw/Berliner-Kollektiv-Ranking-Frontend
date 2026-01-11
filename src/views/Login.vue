@@ -1,5 +1,60 @@
 <script setup lang="ts">
 
+
+import axios from 'axios'
+import { API_URL } from '@/services/api.ts'
+import router from '@/router'
+import { ref } from 'vue'
+
+const user  = ref({
+  name: "",
+  email: "",
+  password: ""
+})
+
+
+async function submit() {
+  try {
+    const response = await axios.post(
+      `${API_URL}/api2/createUser`,
+      user.value,
+      { headers: { "Content-Type": "application/json" } }
+    )
+
+    localStorage.setItem("user", JSON.stringify(response.data))
+
+    alert("Account erfolgreich erstellt")
+    router.push("/profile")
+
+  } catch (err: any) {
+    if (err.response && err.response.data) {
+      alert(err.response.data)   // Backend-Fehlermeldung
+    } else {
+      alert("Registrierung fehlgeschlagen")
+    }
+  }
+}
+
+const loginData = ref({
+  email: "",
+  password: ""
+})
+
+async function login() {
+  try {
+    const response = await axios.post(`${API_URL}/api2/login`, loginData.value, {
+      headers: { "Content-Type": "application/json" }
+    })
+
+    localStorage.setItem("user", JSON.stringify(response.data))
+
+    alert(response.data) // z.B. "Login successful"
+    router.push('/profile')
+  } catch (err: any) {
+      alert("Login failed")
+  }
+}
+
 </script>
 
 
@@ -8,26 +63,30 @@
   <div class="wrapper">
     <div class="card-switch">
       <label class="switch">
-        <input type="checkbox" class="toggle">
+        <input  type="checkbox" class="toggle">
         <span class="slider"></span>
         <span class="card-side"></span>
+
         <div class="flip-card__inner">
           <div class="flip-card__front">
             <div class="title">Log in</div>
             <form class="flip-card__form" action="">
-              <input class="flip-card__input" name="email" placeholder="Email" type="email">
-              <input class="flip-card__input" name="password" placeholder="Password" type="password">
-              <router-link to="/ranking" class="flip-card__btn">Lets go!</router-link>
+              <input v-model="loginData.email" class="flip-card__input" name="email" placeholder="Email" type="email">
+              <input v-model="loginData.password" class="flip-card__input" name="password" placeholder="Password" type="password">
+              <button @click.prevent="login" class="flip-card__btn">Lets go!</button>
             </form>
           </div>
+
           <div class="flip-card__back">
             <div class="title">Sign up</div>
             <form class="flip-card__form" action="">
-              <input class="flip-card__input" placeholder="Name" type="name">
-              <input class="flip-card__input" name="email" placeholder="Email" type="email">
-              <input class="flip-card__input" name="password" placeholder="Password" type="password">
-              <router-link to="/profile" class="flip-card__btn">Confirm!</router-link>            </form>
+              <input v-model="user.name" class="flip-card__input" placeholder="Name" type="text">
+              <input v-model="user.email" class="flip-card__input" name="email" placeholder="Email" type="email">
+              <input v-model="user.password" class="flip-card__input" name="password" placeholder="Password" type="password">
+              <button @click.prevent="submit" class="flip-card__btn">Confirm!</button>
+            </form>
           </div>
+
         </div>
       </label>
     </div>
@@ -98,7 +157,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--bg-colorcolor);
+  background-color: var(--bg-color);
   transition: 0.3s;
 }
 

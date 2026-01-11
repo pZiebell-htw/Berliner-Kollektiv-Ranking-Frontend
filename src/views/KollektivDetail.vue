@@ -15,8 +15,8 @@ interface Kollektiv {
   bildUrl: string
   beschreibung: string
   durchschnittsBewertung: number
-  instagramUrl: string | null
-  soundcloudUrl: string | null
+  instagramUrl: string
+  soundcloudUrl: string
 }
 
 const kollektiv = ref<Kollektiv | null>(null)
@@ -131,32 +131,34 @@ onMounted(() => {
 }
 
 .kollektiv-genre {
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 700;
   text-transform: uppercase;
   color: #8B5EA4;
 }
 
 .kollektiv-name {
-  font-size: rem;
+  font-size: 3.5rem;
   font-weight: 700;
   text-transform: uppercase;
   color: #8B5EA4;
 }
 
 .kollektiv-description {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #888;
 }
 
 .kollektiv-rating {
-  font-size: 1.2rem;
+  margin-top: 18vh;
+  font-size: 2rem;
   font-weight: 700;
   text-transform: uppercase;
   color: #8B5EA4;
 }
 
 .instagram{
+  margin-top: 18vh;
   height: 60px;
   length: 60px;
   display: flex;

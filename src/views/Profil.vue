@@ -1,40 +1,98 @@
 <script setup lang="ts">
-interface Post {
-  title: string;
-  content: string;
-  image?: string;
-}
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
+import { API_URL } from '@/services/api.ts'
 
-const username = 'pziebell';
-const email = 'philipp@ziebell.de';
 const profileImage = 'https://cdn-icons-png.flaticon.com/512/9706/9706583.png';
 
-const posts: Post[] = [
-  { title: 'First Event', content: 'Had an amazing time at the Berlin club!' },
-  { title: 'Techno Night', content: 'Best beats ever!' },
-  { title: 'House Party', content: 'Loved the vibes, great crowd.' },
-];
+interface User {
+  id: number
+  name: string
+  email: string
+}
+
+const user = ref<User | null>(null)
+
+async function loadUser(userId: number) {
+  try {
+    const response = await axios.get(`${API_URL}/api2/user/${userId}`)
+    console.log("Antwort Backend:", response.data)
+    user.value = response.data
+  } catch (err) {
+    console.error("Fehler beim Laden:", err)
+  }
+}
+
+interface Kollektiv {
+  id: number
+  name: string
+  genre: string
+  bildUrl: string
+  beschreibung: string
+  durchschnittsBewertung: number
+}
+
+const kollektivs = ref<Kollektiv[]>([])
+
+
+async function loadKollektivs(userId: number) {
+  try {
+    const response = await axios.get(`${API_URL}/api/kollektivs/user/${userId}`)
+    console.log("Antwort Backend:", response.data)
+    kollektivs.value = response.data
+  } catch (err) {
+    console.error("Fehler beim Laden:", err)
+  }
+}
+
+onMounted(() => {
+  const storedUser = localStorage.getItem("user")
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser)
+    loadUser(parsedUser.id)
+    loadKollektivs(parsedUser.id) //
+  }
+})
+
+
 
 </script>
+
 
 <template>
   <header class="profile-header">
     <img :src="profileImage" alt="Profile Image" class="profile-image">
     <div class="profile-info">
-      <h2 class="username">{{ username }}</h2>
-      <p class="email">{{ email }}</p>
+      <h2 class="username">{{ user?.name }}</h2>
+      <p class="email">{{ user?.email }}</p>
     </div>
   </header>
 
   <main class="posts-list">
     <h3>Your Posts</h3>
-    <article class="post-card" v-for="(post, index) in posts" :key="index">
-      <div class="post-content">
-        <h4 class="post-title">{{ post.title }}</h4>
-        <p class="post-text">{{ post.content }}</p>
-      </div>
-      <img v-if="post.image" :src="post.image" alt="Post Image" class="post-image">
-    </article>
+    <router-link
+      v-for="kollektiv in kollektivs"
+      :key="kollektiv.id"
+      :to="{ name: 'kollektivDetail', params: { id: String(kollektiv.id) } }"
+      class="kollektiv-card-link"
+      custom
+    >
+      <template #default="{ navigate }">
+        <article class="kollektiv-card" @click="navigate">
+          <img
+            :src="kollektiv.bildUrl || '/placeholder.png'"
+            :alt="kollektiv.name"
+            class="kollektiv-image"
+          />
+
+          <div class="kollektiv-content">
+            <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
+            <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
+            <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
+          </div>
+        </article>
+      </template>
+    </router-link>
   </main>
 </template>
 
