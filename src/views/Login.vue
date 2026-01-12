@@ -48,8 +48,7 @@ async function login() {
 
     localStorage.setItem("user", JSON.stringify(response.data))
 
-    alert(response.data) // z.B. "Login successful"
-    router.push('/profile')
+    router.push('/ranking')
   } catch (err: any) {
       alert("Login failed")
   }
