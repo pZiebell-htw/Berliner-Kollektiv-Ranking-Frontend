@@ -9,7 +9,7 @@ import KollektivDetail from '@/views/KollektivDetail.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', name: 'home', component: Home },
+    { path: '/', name: 'home', component: Login },
     { path: '/login', name: 'login', component: Login },
     { path: '/profile', name: 'profile', component: Profil },
     { path: '/add', name: 'add', component: AddNewCollective },

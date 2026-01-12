@@ -18,7 +18,6 @@ function onSearchKey(e: KeyboardEvent) {
 <template>
   <main>
     <div class="button-container">
-      <router-link to="/" class="button" aria-label="Home">HOME</router-link>
       <router-link to="/ranking" class="button" aria-label="Ranking">RANKING</router-link>
       <input class="input" name="suche" placeholder="SUCHE" v-model="search" @keydown="onSearchKey">
       <router-link to="/profile" class="button right">PROFILE</router-link>
@@ -111,55 +110,4 @@ function onSearchKey(e: KeyboardEvent) {
 .input:hover {
   background-color: rgba(255, 255, 255, 0.06);
 }
-
-/* ✅ Tablets & kleine Laptops (< 768px) */
-@media (max-width: 768px) {
-  .button-container {
-    gap: 8px; /* ← Weniger Abstand */
-    padding: 0 8px;
-  }
-
-  .button {
-    min-width: 60px; /* ← Schmaler */
-    font-size: 14px;
-    padding: 0 8px;
-  }
-
-  .input {
-    max-width: 100px; /* ← Schmaleres Suchfeld */
-    font-size: 14px;
-    padding: 0 8px;
-  }
-
-  .input::placeholder {
-    font-size: 12px;
-  }
-}
-
-/* ✅ Sehr kleine Handys (< 480px) */
-@media (max-width: 480px) {
-  .button-container {
-    gap: 4px;
-    padding: 0 4px;
-  }
-
-  .button {
-    min-width: 50px;
-    font-size: 12px;
-    padding: 0 6px;
-    height: 32px; /* ← Flacher */
-  }
-
-  .input {
-    max-width: 70px; /* ← Noch schmaler */
-    font-size: 12px;
-    height: 32px;
-    padding: 0 6px;
-  }
-
-  .input::placeholder {
-    font-size: 10px;
-  }
-}
-
 </style>

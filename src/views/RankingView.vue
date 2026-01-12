@@ -60,7 +60,7 @@ onMounted(() => {
 
 <template>
   <header>
-    <h2>Top Ranking Collectives</h2>
+    <h2>Top Collectives</h2>
   </header>
 
   <div class="add-button-container">
@@ -128,7 +128,7 @@ onMounted(() => {
 header h2 {
   margin-top: 7rem;
   text-align: center;
-  font-size: 4rem;
+  font-size: 6vh;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -174,7 +174,7 @@ header h2 {
 }
 
 .kollektiv-title {
-  font-size: 2.5rem;
+  font-size: 4vh;
   font-weight: 800;
   margin-bottom: 0.25rem;
   text-transform: uppercase;
@@ -183,13 +183,13 @@ header h2 {
 
 .kollektiv-genre {
   color: #aaa;
-  font-size: 2rem;
+  font-size: 3vh;
   margin-bottom: 0.75rem;
 }
 
 .kollektiv-describtion {
   color: #aaa;
-  font-size: 1.3rem;
+  font-size: 1.9vh;
 }
 
 </style>

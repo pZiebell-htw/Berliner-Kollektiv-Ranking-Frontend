@@ -127,38 +127,38 @@ onMounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2vh;
 }
 
 .kollektiv-genre {
-  font-size: 2rem;
+  font-size: 4vh;
   font-weight: 700;
   text-transform: uppercase;
   color: #8B5EA4;
 }
 
 .kollektiv-name {
-  font-size: 3.5rem;
+  font-size: 6vh;
   font-weight: 700;
   text-transform: uppercase;
   color: #8B5EA4;
 }
 
 .kollektiv-description {
-  font-size: 1.5rem;
+  font-size: 2vh;
   color: #888;
 }
 
 .kollektiv-rating {
-  margin-top: 18vh;
-  font-size: 2rem;
+  margin-bottom: 3vh;
+  font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
   color: #8B5EA4;
 }
 
 .instagram{
-  margin-top: 18vh;
+  margin-bottom: 3vh;
   height: 60px;
   length: 60px;
   display: flex;
