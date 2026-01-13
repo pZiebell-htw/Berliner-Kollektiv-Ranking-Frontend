@@ -1,16 +1,12 @@
 <script setup lang="ts">
-
 defineOptions({ name: 'RankingView' })
 import AddButton from '@/components/AddButton.vue'
 import { useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue' // filter
 import axios from 'axios'
 import { API_URL } from '../services/api'
 
-
-
 const router = useRouter()
-
 const navigateToAddCollective = () => {
   router.push('/add')
 }
@@ -26,22 +22,29 @@ interface Kollektiv {
 
 const kollektivs = ref<Kollektiv[]>([])
 
+const selectedGenre = ref('') // filter
+const genres = [ // filter
+  'Trance', 'Hardtrance', 'Techno', 'Hardtechno', 'Groove', 'House',
+  'Hardhouse', 'Gabber', 'Hardcore', 'Hardstyle', 'Tekk', 'Hardtekk'
+]
+const filteredKollektivs = computed(() => { // filter
+  if (!selectedGenre.value) return kollektivs.value
+  return kollektivs.value.filter(k => k.genre === selectedGenre.value)
+})
+
 async function loadKollektivs() {
   try {
     const response = await axios.get(`${API_URL}/api/kollektivs`)
-    console.log("Antwort Backend:", response.data)
-
     kollektivs.value = response.data
   } catch (err) {
-    console.error("Fehler beim Laden:", err)
+    console.error('Fehler beim Laden:', err)
   }
 }
 
 async function deleteKollektiv(id: number) {
-  const password = prompt("Bitte Passwort eingeben, um das Kollektiv zu löschen:")
-
-  if (password !== "12345") {
-    alert("Falsches Passwort")
+  const password = prompt('Bitte Passwort eingeben, um das Kollektiv zu löschen:')
+  if (password !== '12345') {
+    alert('Falsches Passwort')
     return
   }
 
@@ -49,7 +52,7 @@ async function deleteKollektiv(id: number) {
     await axios.delete(`${API_URL}/api/kollektivs/${id}`)
     kollektivs.value = kollektivs.value.filter(k => k.id !== id)
   } catch (err) {
-    console.error("Fehler beim Löschen:", err)
+    console.error('Fehler beim Löschen:', err)
   }
 }
 
@@ -63,52 +66,93 @@ onMounted(() => {
     <h2>Top Collectives</h2>
   </header>
 
-  <div class="add-button-container">
+  <!-- Filter -->
+  <div class="top-controls">
+    <select v-model="selectedGenre" class="genre-dropdown">
+      <option value="">Alle Genres</option>
+      <option v-for="g in genres" :key="g" :value="g">{{ g }}</option>
+    </select>
+
     <AddButton @click="navigateToAddCollective" />
   </div>
 
   <main class="kollektivs-list">
     <router-link
-      v-for="kollektiv in kollektivs"
-      :key="kollektiv.id"
-      :to="{ name: 'kollektivDetail', params: { id: String(kollektiv.id) } }"
-      class="kollektiv-card-link"
-      custom
+      v-for="kollektiv in filteredKollektivs"
+    :key="kollektiv.id"
+    :to="{ name: 'kollektivDetail', params: { id: String(kollektiv.id) } }"
+    class="kollektiv-card-link"
+    custom
     >
-      <template #default="{ navigate }">
-        <article class="kollektiv-card" @click="navigate">
-          <img
-            :src="kollektiv.bildUrl || '/placeholder.png'"
-            :alt="kollektiv.name"
-            class="kollektiv-image"
-          />
+    <template #default="{ navigate }">
+      <article class="kollektiv-card" @click="navigate">
+        <img
+          :src="kollektiv.bildUrl || '/placeholder.png'"
+          :alt="kollektiv.name"
+          class="kollektiv-image"
+        />
 
-          <div class="kollektiv-content">
-            <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
-            <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
-            <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
-          </div>
-          <button
-            class="delete-button"
-            type="button"
-            @click.stop.prevent="deleteKollektiv(kollektiv.id)"
-          >
-            Delete
-          </button>
-        </article>
-      </template>
+        <div class="kollektiv-content">
+          <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
+          <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
+          <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
+        </div>
+        <button
+          class="delete-button"
+          type="button"
+          @click.stop.prevent="deleteKollektiv(kollektiv.id)"
+        >
+          Delete
+        </button>
+      </article>
+    </template>
     </router-link>
   </main>
 </template>
 
 <style>
+/* Filter */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 2rem auto;
+  padding: 0 5%;
+}
 
+/* Filter */
+.genre-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 16px;
+  padding-right: 36px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(188, 89, 241, 0.36);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Filter */
+.genre-dropdown:hover {
+  background: rgba(188, 89, 241, 0.65);
+}
 
 .delete-button {
   position: absolute;
   right: 1rem;
   top: 1rem;
-
   background: rgba(64, 48, 73, 0.92);
   color: #fff;
   border: none;
@@ -116,13 +160,6 @@ onMounted(() => {
   border-radius: 4px;
   cursor: pointer;
   z-index: 2;
-}
-
-
-.add-button-container {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 5%;
 }
 
 header h2 {
@@ -191,5 +228,4 @@ header h2 {
   color: #aaa;
   font-size: 1.9vh;
 }
-
 </style>
