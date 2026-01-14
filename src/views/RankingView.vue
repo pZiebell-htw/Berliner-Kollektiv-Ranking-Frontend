@@ -6,6 +6,7 @@ import { ref, onMounted, computed } from 'vue' // filter
 import axios from 'axios'
 import { API_URL } from '../services/api'
 
+
 const router = useRouter()
 const navigateToAddCollective = () => {
   router.push('/add')
@@ -59,6 +60,25 @@ async function deleteKollektiv(id: number) {
 onMounted(() => {
   loadKollektivs()
 })
+
+const selectedRating = ref<{ [id: number]: number }>({}) // speichert aktuelle Stern-Bewertung pro Kollektiv
+
+async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
+  selectedRating.value[kollektiv.id] = rating // lokal markieren
+
+  try {
+    await axios.post(`${API_URL}/api/kollektivs/${kollektiv.id}/bewertung`, {
+      bewertung: rating
+    })
+    // Optional: lade die Kollektivs neu oder update den Durchschnitt lokal
+    await loadKollektivs()
+  } catch (err) {
+    console.error('Fehler beim Bewerten:', err)
+  }
+}
+
+
+
 </script>
 
 <template>
@@ -104,6 +124,20 @@ onMounted(() => {
         >
           Delete
         </button>
+
+        <div class="rating">
+          <button
+            v-for="star in 5"
+            :key="star"
+            type="button"
+            :class="['star', { filled: star <= (selectedRating[kollektiv.id] || kollektiv.durchschnittsBewertung) }]"
+            @click.stop.prevent="rateKollektiv(kollektiv, star)"
+          >
+            ★
+          </button>
+        </div>
+
+
       </article>
     </template>
     </router-link>
@@ -111,6 +145,37 @@ onMounted(() => {
 </template>
 
 <style>
+
+.rating{
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+}
+.rating .star {
+  font-size: 1.4rem;
+  color: #ccc;
+  line-height: 1;
+  user-select: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.rating .star.filled {
+  color: #f02de6;
+}
+
+.rating .star:hover,
+.rating .star.filled:hover {
+  color: #f02de6;
+  transform: scale(1.2);
+}
+
+
+
+
+
 /* Filter */
 .top-controls {
   display: flex;
