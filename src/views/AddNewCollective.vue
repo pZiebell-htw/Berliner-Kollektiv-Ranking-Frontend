@@ -20,7 +20,7 @@ function userIdFromStorage(): string | null {
   const user = localStorage.getItem("user");
   if (!user) return null;
   const parsed = JSON.parse(user);
-  return parsed.id?.toString() || null;  // ID aus dem gespeicherten User-Objekt
+  return parsed.id?.toString() || null;
 }
 
 
@@ -45,7 +45,7 @@ const collective = ref({
 async function submit() {
   try {
     await axios.post(
-      `${API_URL}/api/createKollektiv?userId=${collective.value.userId}`,
+      `${API_URL}/kollektiv/create?userId=${collective.value.userId}`,
       collective.value,
       { headers: { "Content-Type": "application/json" } }
     );

@@ -25,7 +25,7 @@ const route = useRoute()
 async function loadKollektivDetail() {
   const id = route.params.id as string
   try {
-    const response = await axios.get(`${API_URL}/api/kollektivs/${id}`)
+    const response = await axios.get(`${API_URL}/kollektiv/${id}`)
     kollektiv.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden des Kollektivs:", err)

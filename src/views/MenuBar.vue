@@ -20,7 +20,7 @@ const allKollektivs = ref<Kollektiv[]>([])
 // Suchfunktion
 async function loadKollektivs() {
   try {
-    const response = await axios.get(`${API_URL}/api/kollektivs`)
+    const response = await axios.get(`${API_URL}/kollektiv/all`)
     allKollektivs.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden:", err)

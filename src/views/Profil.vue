@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import { API_URL } from '@/services/api.ts'
+import router from '@/router'
 
 const profileImage = 'https://cdn-icons-png.flaticon.com/512/9706/9706583.png';
 
@@ -15,12 +16,17 @@ const user = ref<User | null>(null)
 
 async function loadUser(userId: number) {
   try {
-    const response = await axios.get(`${API_URL}/api2/user/${userId}`)
+    const response = await axios.get(`${API_URL}/user/${userId}`)
     console.log("Antwort Backend:", response.data)
     user.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden:", err)
   }
+}
+
+function logout() {
+  localStorage.removeItem("user")
+  router.push("/login")
 }
 
 interface Kollektiv {
@@ -37,7 +43,7 @@ const kollektivs = ref<Kollektiv[]>([])
 
 async function loadKollektivs(userId: number) {
   try {
-    const response = await axios.get(`${API_URL}/api/kollektivs/user/${userId}`)
+    const response = await axios.get(`${API_URL}/kollektiv/user/${userId}`)
     console.log("Antwort Backend:", response.data)
     kollektivs.value = response.data
   } catch (err) {
@@ -45,12 +51,13 @@ async function loadKollektivs(userId: number) {
   }
 }
 
+
 onMounted(() => {
   const storedUser = localStorage.getItem("user")
   if (storedUser) {
     const parsedUser = JSON.parse(storedUser)
     loadUser(parsedUser.id)
-    loadKollektivs(parsedUser.id) //
+    loadKollektivs(parsedUser.id)
   }
 })
 
@@ -93,11 +100,25 @@ onMounted(() => {
         </article>
       </template>
     </router-link>
+    <button class="logout" @click="logout">Logout</button>
   </main>
 </template>
 
 <style>
 
+.logout{
+  width: 10vw;
+  height: 3vh;
+  position: absolute;
+  bottom: 5vh;
+  background: rgba(188, 89, 241, 0.36);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.5vh;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+}
 
 .profile-header {
   display: flex;

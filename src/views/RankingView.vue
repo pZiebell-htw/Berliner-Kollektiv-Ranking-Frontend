@@ -35,7 +35,7 @@ const filteredKollektivs = computed(() => { // filter
 
 async function loadKollektivs() {
   try {
-    const response = await axios.get(`${API_URL}/api/kollektivs`)
+    const response = await axios.get(`${API_URL}/kollektiv/ranked`)
     kollektivs.value = response.data
   } catch (err) {
     console.error('Fehler beim Laden:', err)
@@ -50,7 +50,7 @@ async function deleteKollektiv(id: number) {
   }
 
   try {
-    await axios.delete(`${API_URL}/api/kollektivs/${id}`)
+    await axios.delete(`${API_URL}/kollektiv/delete/${id}`)
     kollektivs.value = kollektivs.value.filter(k => k.id !== id)
   } catch (err) {
     console.error('Fehler beim Löschen:', err)
@@ -63,19 +63,43 @@ onMounted(() => {
 
 const selectedRating = ref<{ [id: number]: number }>({}) // speichert aktuelle Stern-Bewertung pro Kollektiv
 
+function userIdFromStorage(): string | null {
+  const user = localStorage.getItem("user");
+  if (!user) return null;
+  const parsed = JSON.parse(user);
+  return parsed.id?.toString() || null;
+}
+
+
 async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
-  selectedRating.value[kollektiv.id] = rating // lokal markieren
+  selectedRating.value[kollektiv.id] = rating
+
+  const userId = userIdFromStorage()
+  if (!userId) {
+    alert("Please login")
+    return
+  }
 
   try {
-    await axios.post(`${API_URL}/api/kollektivs/${kollektiv.id}/bewertung`, {
-      bewertung: rating
-    })
-    // Optional: lade die Kollektivs neu oder update den Durchschnitt lokal
+    await axios.post(
+      `${API_URL}/bewertung/add`,
+      {
+        bewertung: rating
+      },
+      {
+        params: {
+          userId: userId,
+          kollektivId: kollektiv.id
+        }
+      }
+    )
+
     await loadKollektivs()
   } catch (err) {
     console.error('Fehler beim Bewerten:', err)
   }
 }
+
 
 
 
@@ -163,12 +187,12 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
 }
 
 .rating .star.filled {
-  color: #f02de6;
+  color: rgba(188, 89, 241, 0.77);
 }
 
 .rating .star:hover,
 .rating .star.filled:hover {
-  color: #f02de6;
+  color: rgba(188, 89, 241, 0.77);
   transform: scale(1.2);
 }
 

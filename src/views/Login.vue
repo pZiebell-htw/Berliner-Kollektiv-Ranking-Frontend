@@ -12,11 +12,20 @@ const user  = ref({
   password: ""
 })
 
+function isValidEmail(email: string): boolean {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return re.test(email)
+}
 
-async function submit() {
+
+async function createUser() {
+  if (!isValidEmail(user.value.email)) {
+    alert("Please enter a valid email address.")
+    return
+  }
   try {
     const response = await axios.post(
-      `${API_URL}/api2/createUser`,
+      `${API_URL}/user/create`,
       user.value,
       { headers: { "Content-Type": "application/json" } }
     )
@@ -42,7 +51,7 @@ const loginData = ref({
 
 async function login() {
   try {
-    const response = await axios.post(`${API_URL}/api2/login`, loginData.value, {
+    const response = await axios.post(`${API_URL}/user/login`, loginData.value, {
       headers: { "Content-Type": "application/json" }
     })
 
@@ -82,7 +91,7 @@ async function login() {
               <input v-model="user.name" class="flip-card__input" placeholder="Name" type="text">
               <input v-model="user.email" class="flip-card__input" name="email" placeholder="Email" type="email">
               <input v-model="user.password" class="flip-card__input" name="password" placeholder="Password" type="password">
-              <button @click.prevent="submit" class="flip-card__btn">Confirm!</button>
+              <button @click.prevent="createUser" class="flip-card__btn">Confirm!</button>
             </form>
           </div>
 

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 import Login from '@/views/Login.vue'
 import AddNewCollective from '@/views/AddNewCollective.vue'
 import Profil from '@/views/Profil.vue'
