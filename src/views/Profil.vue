@@ -4,8 +4,6 @@ import axios from 'axios'
 import { API_URL } from '@/services/api.ts'
 import router from '@/router'
 
-const profileImage = 'https://cdn-icons-png.flaticon.com/512/9706/9706583.png';
-
 interface User {
   id: number
   name: string
@@ -68,8 +66,7 @@ onMounted(() => {
 
 <template>
   <header class="profile-header">
-    <img :src="profileImage" alt="Profile Image" class="profile-image">
-    <div class="profile-info">
+    <div class="profile-info-only-text">
       <h2 class="username">{{ user?.name }}</h2>
       <p class="email">{{ user?.email }}</p>
     </div>
@@ -131,21 +128,6 @@ onMounted(() => {
   width: 90%;
 }
 
-.profile-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(188, 89, 241, 0.36);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
 
 .profile-info .email {
   color: #aaa;
@@ -164,50 +146,16 @@ onMounted(() => {
 .posts-list h3 {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #fff;
+  color: #555;
   text-transform: uppercase;
   margin-bottom: 1rem;
   text-align: center;
 }
 
-.post-card {
+.kollektiv-content {
   display: flex;
-  gap: 1rem;
-  background: color-mix(in srgb, var(--color-background) 80%, black);
-  border-radius: 8px;
-  border: 2px solid rgba(188, 89, 241, 0.36);
-  padding: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 90%;
-}
-
-.post-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
-
-.post-content {
-  flex: 1;
-}
-
-.post-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-
-.post-text {
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-.post-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-  border: 2px solid rgba(188, 89, 241, 0.36);
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>
 
