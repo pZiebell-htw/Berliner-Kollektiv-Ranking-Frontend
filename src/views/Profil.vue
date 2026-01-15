@@ -125,9 +125,8 @@ onMounted(() => {
   align-items: center;
   gap: 1rem;
   padding: 2rem 5%;
-  background: color-mix(in srgb, var(--color-background) 80%, black);
   border-radius: 10px;
-  border: 2px solid rgba(188, 89, 241, 0.36);
+  border: none;
   margin: 3rem auto 2rem auto;
   width: 90%;
 }
