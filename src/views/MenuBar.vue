@@ -86,7 +86,7 @@ function geheZuZufall() {
       <input
         class="input"
         name="suche"
-        placeholder="SUCHE"
+        placeholder="SEARCH"
         v-model="search"
         @keydown="onSearchKey"
       />
@@ -149,7 +149,7 @@ function geheZuZufall() {
   outline: none;
   border: 0;
   width: auto;
-  max-width: 30vh;
+  max-width: 40vh;
   height: 36px;
   padding: 0 12px;
   background-color: rgba(139, 94, 164, 0.08);
