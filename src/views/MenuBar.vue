@@ -8,16 +8,13 @@ const router = useRouter()
 const route = useRoute()
 const search = ref('')
 
-// Suchfunktion
 interface Kollektiv {
   id: string
   name: string
 }
 
-// Suchfunktion
 const allKollektivs = ref<Kollektiv[]>([])
 
-// Suchfunktion
 async function loadKollektivs() {
   try {
     const response = await axios.get(`${API_URL}/kollektiv/all`)
@@ -26,9 +23,8 @@ async function loadKollektivs() {
     console.error("Fehler beim Laden:", err)
   }
 }
-loadKollektivs() // Suchfunktion
+loadKollektivs()
 
-// Suchfunktion
 function onSearchKey(e: KeyboardEvent) {
   if (e.key === 'Enter') {
     const q = search.value.trim()
@@ -40,7 +36,6 @@ function onSearchKey(e: KeyboardEvent) {
   }
 }
 
-// Suchfunktion
 const filteredSuggestions = computed(() =>
   search.value
     ? allKollektivs.value.filter(k =>
@@ -49,7 +44,6 @@ const filteredSuggestions = computed(() =>
     : []
 )
 
-// Suchfunktion
 function goToDetail(id: string) {
   if (route.name === 'kollektivDetail') {
     router.replace({ path: '/' }).then(() => {
@@ -60,12 +54,33 @@ function goToDetail(id: string) {
   }
   search.value = ''
 }
+
+// Zufallsfunktion
+function geheZuZufall() {
+  if (!allKollektivs.value.length) return
+
+  let zufall: Kollektiv
+  do {
+    const index = Math.floor(Math.random() * allKollektivs.value.length)
+    zufall = allKollektivs.value[index]
+  } while (route.params.id === zufall.id && allKollektivs.value.length > 1)
+
+  router.replace({ path: '/' }).then(() => {
+    router.push({ name: 'kollektivDetail', params: { id: zufall.id } }).catch(() => {})
+  })
+}
+
 </script>
 
-<!-- Suchfunktion -->
 <template>
   <div class="button-container">
     <router-link to="/ranking" class="button">RANKING</router-link>
+
+    <!-- Random Collective Text mittig -->
+    <div class="random-button" @click="geheZuZufall">
+      <span>Random</span>
+      <span>Collective</span>
+    </div>
 
     <div class="search-wrapper">
       <input
@@ -104,7 +119,7 @@ function goToDetail(id: string) {
 }
 
 .button {
-  outline: 0 !important;
+  outline: none !important;
   border: 0;
   min-width: 88px;
   height: 36px;
@@ -131,26 +146,17 @@ function goToDetail(id: string) {
 }
 
 .input {
-  outline: 0 !important;
+  outline: none;
   border: 0;
-  -webkit-appearance: none;
-  appearance: none;
   width: auto;
   max-width: 30vh;
   height: 36px;
-  border-radius: 5px;
   padding: 0 12px;
   background-color: rgba(139, 94, 164, 0.08);
   color: #fff;
   font-weight: 600;
   font-size: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.18s ease-in-out, background-color 0.12s ease;
-  cursor: text;
-  box-sizing: border-box;
-  position: relative;
+  border-radius: 5px;
 }
 
 .input::placeholder {
@@ -164,12 +170,10 @@ function goToDetail(id: string) {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
-/* Suchfunktion */
 .search-wrapper {
   position: relative;
 }
 
-/* Suchfunktion */
 .suggestions {
   position: absolute;
   top: 40px;
@@ -185,15 +189,33 @@ function goToDetail(id: string) {
   z-index: 10000;
 }
 
-/* Suchfunktion */
 .suggestions li {
   padding: 8px 12px;
   color: #fff;
   cursor: pointer;
 }
 
-/* Suchfunktion */
 .suggestions li:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.random-button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.random-button:hover {
+  color: #8B5EA4;
 }
 </style>
