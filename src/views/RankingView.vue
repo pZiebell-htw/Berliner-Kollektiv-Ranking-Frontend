@@ -214,7 +214,7 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
 }
 .rating .star {
   font-size: 1.4rem;
-  color: #ccc;
+  color: #555;
   line-height: 1;
   user-select: none;
   background: none;
