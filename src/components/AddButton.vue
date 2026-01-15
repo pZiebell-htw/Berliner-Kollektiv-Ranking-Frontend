@@ -28,6 +28,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
+  color: #fff;
 }
 
 button:hover {
@@ -45,7 +46,7 @@ button:hover {
 
 .plus-icon span {
   position: absolute;
-  background-color: rgb(139, 94, 164);
+  background-color: #fff;
 }
 
 .plus-icon span:first-child {

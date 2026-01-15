@@ -38,7 +38,6 @@ interface Kollektiv {
 
 const kollektivs = ref<Kollektiv[]>([])
 
-
 async function loadKollektivs(userId: number) {
   try {
     const response = await axios.get(`${API_URL}/kollektiv/user/${userId}`)
@@ -49,7 +48,6 @@ async function loadKollektivs(userId: number) {
   }
 }
 
-
 onMounted(() => {
   const storedUser = localStorage.getItem("user")
   if (storedUser) {
@@ -58,11 +56,7 @@ onMounted(() => {
     loadKollektivs(parsedUser.id)
   }
 })
-
-
-
 </script>
-
 
 <template>
   <header class="profile-header">
@@ -88,7 +82,6 @@ onMounted(() => {
             :alt="kollektiv.name"
             class="kollektiv-image"
           />
-
           <div class="kollektiv-content">
             <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
             <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
@@ -97,37 +90,21 @@ onMounted(() => {
         </article>
       </template>
     </router-link>
+
     <button class="logout" @click="logout">Logout</button>
   </main>
 </template>
 
 <style>
-
-.logout{
-  width: 10vw;
-  height: 3vh;
-  position: absolute;
-  bottom: 5vh;
-  background: rgba(188, 89, 241, 0.36);
-  border: none;
-  border-radius: 5px;
-  font-size: 1.5vh;
-  font-weight: 700;
-  color: #fff;
-  cursor: pointer;
-}
-
 .profile-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 2rem 5%;
+  padding: 0.25rem 5%;
   border-radius: 10px;
-  border: none;
   margin: 3rem auto 2rem auto;
   width: 90%;
 }
-
 
 .profile-info .email {
   color: #aaa;
@@ -157,5 +134,24 @@ onMounted(() => {
   flex-direction: column;
   align-items: flex-start;
 }
-</style>
 
+.logout {
+  width: 14vw;
+  height: 5vh;
+  margin-top: 2rem;
+  background: rgba(188, 89, 241, 0.6);
+  border: none;
+  border-radius: 6px;
+  font-size: 1.9vh;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logout:hover {
+  background-color: rgba(188, 89, 241, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+</style>

@@ -87,7 +87,7 @@ async function submit() {
         <label>SoundCloud URL</label>
         <input v-model="collective.soundcloudUrl" required />
 
-        <label>Describtion</label>
+        <label>Description</label>
         <textarea
           v-model="collective.beschreibung"
           @input="autoResize"

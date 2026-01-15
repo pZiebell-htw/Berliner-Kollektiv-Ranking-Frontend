@@ -107,13 +107,13 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
 
 <template>
   <header>
-    <h2>Top Collectives</h2>
+    <h2>Top Collectives Ranking</h2>
   </header>
 
   <!-- Filter -->
   <div class="top-controls">
     <select v-model="selectedGenre" class="genre-dropdown">
-      <option value="">Alle Genres</option>
+      <option value="">All Genres</option>
       <option v-for="g in genres" :key="g" :value="g">{{ g }}</option>
     </select>
 
@@ -242,7 +242,7 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 91%;
   margin: 2rem auto;
   padding: 0 5%;
 }
