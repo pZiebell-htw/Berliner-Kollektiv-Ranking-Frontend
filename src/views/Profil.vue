@@ -98,15 +98,16 @@ onMounted(() => {
 <style>
 .profile-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  text-align: center;
   padding: 0.25rem 5%;
   border-radius: 10px;
-  margin: 3rem auto 2rem auto;
+  margin: 1rem auto 5rem auto;
   width: 90%;
 }
 
-.profile-info .email {
+.profile-info-only-text .email {
   color: #aaa;
   font-size: 0.95rem;
 }
