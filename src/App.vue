@@ -1,12 +1,18 @@
-
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
+import { computed } from 'vue'
 import MenuBar from '@/views/MenuBar.vue'
+
+const route = useRoute()
+
+const showMenuBar = computed(() => route.name !== 'login')
+
 </script>
 
-
 <template>
-  <MenuBar> </MenuBar>
+
+  <MenuBar v-if="showMenuBar" />
+
   <div id="app-container">
     <RouterView />
   </div>
@@ -27,20 +33,6 @@ html, body, #app {
   padding: 0;
   box-sizing: border-box;
 }
-
-MenuBar,
-#app-container > * {
-  width: 100%;
-  max-width: 100%;
-}
-
 </style>
-
-
-
-
-
-
-
 
 
