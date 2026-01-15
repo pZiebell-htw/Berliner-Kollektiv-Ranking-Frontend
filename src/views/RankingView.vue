@@ -137,8 +137,14 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
         />
 
         <div class="kollektiv-content">
-          <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
-          <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
+          <div class="kollektiv-header">
+            <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
+            <span class="kollektiv-durchschnittsbewertung">
+              <span class="avg-symbol">Ø</span>
+              <span class="avg-value">{{ kollektiv.durchschnittsBewertung.toFixed(1) }}</span>
+            </span>
+
+          </div>          <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
           <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
         </div>
         <button
@@ -154,7 +160,7 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
             v-for="star in 5"
             :key="star"
             type="button"
-            :class="['star', { filled: star <= (selectedRating[kollektiv.id] || kollektiv.durchschnittsBewertung) }]"
+            :class="['star']"
             @click.stop.prevent="rateKollektiv(kollektiv, star)"
           >
             ★
@@ -169,6 +175,37 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
 </template>
 
 <style>
+
+.kollektiv-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.kollektiv-title {
+  margin: 0;
+  font-size: 4vh;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.kollektiv-durchschnittsbewertung {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1vw;
+}
+
+.avg-symbol {
+  font-size: 2.5vh;
+  color: #aaa;
+}
+
+.avg-value {
+  font-size: 3vh;
+  font-weight: 600;
+  color: #fff;
+}
 
 .rating{
   position: absolute;
