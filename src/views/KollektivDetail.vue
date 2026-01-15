@@ -51,7 +51,7 @@ onMounted(() => {
         <p class="kollektiv-description">{{ kollektiv.beschreibung }}</p>
 
         <div class="rating-social-row">
-          <p class="kollektiv-rating"> Durchschnittsbewertung: {{ kollektiv.durchschnittsBewertung }} </p>
+          <p class="kollektiv-rating"> Durchschnittsbewertung: {{ kollektiv.durchschnittsBewertung.toFixed(1) }} </p>
 
             <a :href="kollektiv.instagramUrl" target="_blank" class=" instagram">
             <img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740&q=80"
