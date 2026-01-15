@@ -42,9 +42,11 @@ async function loadKollektivs() {
   }
 }
 
+const deletePassword = import.meta.env.VITE_DELETE_PASSWORD;
+
 async function deleteKollektiv(id: number) {
   const password = prompt('Bitte Passwort eingeben, um das Kollektiv zu löschen:')
-  if (password !== '12345') {
+  if (password !== deletePassword) {
     alert('Falsches Passwort')
     return
   }
