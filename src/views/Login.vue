@@ -23,7 +23,31 @@ async function createUser() {
     alert("Please enter a valid email address.")
     return
   }
+
   try {
+    // Username prüfen
+    const usernameResponse = await axios.get<boolean>(
+      `${API_URL}/user/exists/username`,
+      { params: { name: user.value.name } }
+    )
+
+    if (usernameResponse.data) {
+      alert("Name is already taken.")
+      return
+    }
+
+    // Email prüfen
+    const emailResponse = await axios.get<boolean>(
+      `${API_URL}/user/exists/email`,
+      { params: { email: user.value.email } }
+    )
+
+    if (emailResponse.data) {
+      alert("Email is already registered.")
+      return
+    }
+
+    // User anlegen
     const response = await axios.post(
       `${API_URL}/user/create`,
       user.value,
@@ -31,18 +55,14 @@ async function createUser() {
     )
 
     localStorage.setItem("user", JSON.stringify(response.data))
-
     alert("Account erfolgreich erstellt")
     router.push("/profile")
 
-  } catch (err: any) {
-    if (err.response && err.response.data) {
-      alert(err.response.data)   // Backend-Fehlermeldung
-    } else {
-      alert("Registrierung fehlgeschlagen")
-    }
+  } catch (err) {
+    alert("Registrierung fehlgeschlagen")
   }
 }
+
 
 const loginData = ref({
   email: "",
