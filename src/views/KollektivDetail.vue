@@ -113,10 +113,15 @@ onMounted(() => {
 }
 
 .kollektiv-image {
-  width: 100%;
-  height: auto;
+  width: 250px !important;
+  height: 250px !important;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  max-width: 250px;
+  max-height: 250px;
   border-radius: 8px;
   border: 1px solid rgba(188, 89, 241, 0.2);
+  display: block;
 }
 
 .kollektiv-info {
@@ -179,6 +184,7 @@ onMounted(() => {
 
 .kollektiv-image-container {
   width: 250px;
+  height: 250px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
