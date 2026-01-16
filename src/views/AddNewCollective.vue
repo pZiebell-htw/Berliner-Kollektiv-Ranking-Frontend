@@ -49,10 +49,11 @@ async function submit() {
       collective.value,
       { headers: { "Content-Type": "application/json" } }
     );
-    router.push({ path: "/ranking", query: { reload: new Date().getTime() } });
+    alert("You've successfully added a collective!");
+    window.location.href = "/ranking";
   } catch (err: unknown) {
     console.warn("Error", err);
-    router.push({ path: "/ranking", query: { reload: new Date().getTime() } });
+    alert("Error, please try again.");
   }
 }
 
