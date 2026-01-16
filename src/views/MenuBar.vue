@@ -55,12 +55,9 @@ function goToDetail(id: string) {
   search.value = ''
 }
 
-// Zufallsfunktion
 function geheZuZufall() {
   if (allKollektivs.value.length === 0) return
-
   let zufall: Kollektiv
-
   do {
     const index = Math.floor(Math.random() * allKollektivs.value.length)
     zufall = allKollektivs.value[index] as Kollektiv
@@ -76,14 +73,12 @@ function geheZuZufall() {
     })
   }
 }
-
 </script>
 
 <template>
   <div class="button-container">
     <router-link to="/ranking" class="button">RANKING</router-link>
 
-    <!-- Random Collective Text mittig -->
     <div class="random-button" @click="geheZuZufall">
       <span>Random</span>
       <span>Collective</span>
@@ -92,7 +87,6 @@ function geheZuZufall() {
     <div class="search-wrapper">
       <input
         class="input"
-        name="suche"
         placeholder="SEARCH"
         v-model="search"
         @keydown="onSearchKey"
@@ -104,7 +98,8 @@ function geheZuZufall() {
       </ul>
     </div>
 
-    <router-link to="/profile" class="button right">PROFILE</router-link>
+    <router-link to="/last-viewed" class="button history-btn">LAST VIEWED</router-link>
+    <router-link to="/profile" class="button">PROFILE</router-link>
   </div>
 </template>
 
@@ -117,7 +112,6 @@ function geheZuZufall() {
   height: 5vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   gap: 12px;
   padding: 0 16px;
   box-sizing: border-box;
@@ -126,7 +120,7 @@ function geheZuZufall() {
 }
 
 .button {
-  outline: none !important;
+  outline: none;
   border: 0;
   min-width: 88px;
   height: 36px;
@@ -139,23 +133,22 @@ function geheZuZufall() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.18s ease-in-out, background-color 0.12s ease;
+  transition: transform 0.18s, background-color 0.12s;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.button.right {
+.history-btn {
   margin-left: auto;
 }
 
-.button:hover,
-.button:focus-visible {
+.button:hover {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
 .input {
   outline: none;
   border: 0;
-  width: auto;
   max-width: 40vh;
   height: 36px;
   padding: 0 12px;
@@ -166,45 +159,21 @@ function geheZuZufall() {
   border-radius: 5px;
 }
 
-.input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 400;
-  font-size: 13px;
-}
-
-.input:focus,
-.input:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-}
-
-.search-wrapper {
-  position: relative;
-}
+.search-wrapper { position: relative; }
 
 .suggestions {
   position: absolute;
   top: 40px;
-  left: 0;
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
   background-color: rgba(64, 48, 73, 0.95);
   border-radius: 5px;
   list-style: none;
-  padding: 0;
-  margin: 0;
   z-index: 10000;
 }
 
-.suggestions li {
-  padding: 8px 12px;
-  color: #fff;
-  cursor: pointer;
-}
-
-.suggestions li:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
+.suggestions li { padding: 8px 12px; color: #fff; cursor: pointer; }
 
 .random-button {
   position: absolute;
@@ -213,16 +182,9 @@ function geheZuZufall() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: 0.65rem;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
-  line-height: 1.1;
-  text-align: center;
-}
-
-.random-button:hover {
-  color: #8B5EA4;
 }
 </style>
