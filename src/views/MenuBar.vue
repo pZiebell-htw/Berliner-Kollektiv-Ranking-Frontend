@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios'
 import { API_URL } from '../services/api'
@@ -7,6 +7,12 @@ import { API_URL } from '../services/api'
 const router = useRouter()
 const route = useRoute()
 const search = ref('')
+
+const isLoggedIn = ref(!!localStorage.getItem('user'))
+
+watch(() => route.path, () => {
+  isLoggedIn.value = !!localStorage.getItem('user')
+})
 
 interface Kollektiv {
   id: string
@@ -23,7 +29,10 @@ async function loadKollektivs() {
     console.error("Fehler beim Laden:", err)
   }
 }
-loadKollektivs()
+
+onMounted(() => {
+  loadKollektivs()
+})
 
 function onSearchKey(e: KeyboardEvent) {
   if (e.key === 'Enter') {
@@ -76,7 +85,7 @@ function geheZuZufall() {
 </script>
 
 <template>
-  <div class="button-container">
+  <div v-if="isLoggedIn && route.path !== '/login' && route.path !== '/'" class="button-container">
     <router-link to="/ranking" class="button">RANKING</router-link>
 
     <div class="random-button" @click="geheZuZufall">
@@ -171,9 +180,13 @@ function geheZuZufall() {
   border-radius: 5px;
   list-style: none;
   z-index: 10000;
+  margin: 0;
+  padding: 0;
 }
 
 .suggestions li { padding: 8px 12px; color: #fff; cursor: pointer; }
+
+.suggestions li:hover { background-color: rgba(255, 255, 255, 0.1); }
 
 .random-button {
   position: absolute;
@@ -186,5 +199,7 @@ function geheZuZufall() {
   font-weight: 600;
   color: #fff;
   cursor: pointer;
+  line-height: 1.1;
+  text-align: center;
 }
 </style>
