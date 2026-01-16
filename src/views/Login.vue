@@ -1,320 +1,221 @@
 <script setup lang="ts">
-
-
-import axios from 'axios'
-import { API_URL } from '@/services/api.ts'
-import router from '@/router'
 import { ref } from 'vue'
+import axios from 'axios'
+import { API_URL } from '@/services/api'
+import router from '@/router'
 
-const user  = ref({
-  name: "",
-  email: "",
-  password: ""
-})
-
-function isValidEmail(email: string): boolean {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return re.test(email)
-}
-
+const user = ref({ name: "", email: "", password: "" })
+const loginData = ref({ email: "" , password: "" })
 
 async function createUser() {
-  if (!isValidEmail(user.value.email)) {
-    alert("Please enter a valid email address.")
-    return
-  }
-
   try {
-    // Wir schicken den User direkt an das Backend.
-    // Das Backend prüft jetzt intern Name und Email!
-    const response = await axios.post(
-      `${API_URL}/user/create`,
-      user.value,
-      { headers: { "Content-Type": "application/json" } }
-    )
-
-    // Wenn wir hier landen, war alles erfolgreich (Status 200)
+    const response = await axios.post(`${API_URL}/user/create`, user.value)
     localStorage.setItem("user", JSON.stringify(response.data))
-    alert("Account erfolgreich erstellt")
     router.push("/profile")
-
   } catch (err: any) {
-    // Wenn das Backend einen Fehler (wie 409) schickt, landen wir hier
-    if (err.response && err.response.status === 409) {
-      // Hier wird "Username oder E-Mail bereits vergeben" angezeigt
-      alert(err.response.data)
-    } else {
-      // Allgemeiner Fehler (z.B. Server down)
-      alert("Registrierung fehlgeschlagen. Bitte versuche es später erneut.")
-    }
+    alert(err.response?.data || "Registrierung fehlgeschlagen")
   }
 }
-
-const loginData = ref({
-  email: "",
-  password: ""
-})
 
 async function login() {
   try {
-    const response = await axios.post(`${API_URL}/user/login`, loginData.value, {
-      headers: { "Content-Type": "application/json" }
-    })
+    const response = await axios.post(`${API_URL}/user/login`, loginData.value)
     localStorage.setItem("user", JSON.stringify(response.data))
     router.push('/ranking')
   } catch (err: any) {
-
-    if (err.response && err.response.data) {
-      alert(err.response.data)
-    } else {
-      alert("Login failed. Please check your credentials.")
-    }
+    alert(err.response?.data || "Login fehlgeschlagen")
   }
 }
-
 </script>
 
-
 <template>
-  <!-- From Uiverse.io by andrew-demchenk0 -->
-  <div class="wrapper">
-    <div class="card-switch">
-      <label class="switch">
-        <input  type="checkbox" class="toggle">
-        <span class="slider"></span>
-        <span class="card-side"></span>
+  <div class="login-page">
+    <div class="side left">
+      <div class="logo-wrap">
+        <h1 class="main-title">BERLINER<br>KOLLEKTIV<br>RANKING</h1>
+        <p class="sub-text">
+          Entdecke und bewerte die pulsierende Musikszene Berlins.
+          Vom Techno-Keller bis zum Open-Air.
+        </p>
+      </div>
+    </div>
 
-        <div class="flip-card__inner">
-          <div class="flip-card__front">
-            <div class="title">Log in</div>
-            <form class="flip-card__form" action="">
-              <input v-model="loginData.email" class="flip-card__input" name="email" placeholder="Email" type="email">
-              <input v-model="loginData.password" class="flip-card__input" name="password" placeholder="Password" type="password">
-              <button @click.prevent="login" class="flip-card__btn">Lets go!</button>
-            </form>
-          </div>
+    <div class="divider"></div>
 
-          <div class="flip-card__back">
-            <div class="title">Sign up</div>
-            <form class="flip-card__form" action="">
-              <input v-model="user.name" class="flip-card__input" placeholder="Name" type="text">
-              <input v-model="user.email" class="flip-card__input" name="email" placeholder="Email" type="email">
-              <input v-model="user.password" class="flip-card__input" name="password" placeholder="Password" type="password">
-              <button @click.prevent="createUser" class="flip-card__btn">Confirm!</button>
-            </form>
-          </div>
+    <div class="side right">
+      <div class="auth-container">
 
+        <div class="switch-box">
+          <span class="mode-label">Log in</span>
+          <label class="switch">
+            <input type="checkbox" id="mode-toggle" class="mode-checkbox">
+            <span class="slider"></span>
+          </label>
+          <span class="mode-label">Sign up</span>
         </div>
-      </label>
+
+        <div class="card-area">
+          <div class="card-inner">
+
+            <div class="card-front">
+              <h2 class="form-title">Log in</h2>
+              <form class="form" @submit.prevent="login">
+                <input v-model="loginData.email" class="input" placeholder="Email" type="email" required>
+                <input v-model="loginData.password" class="input" placeholder="Password" type="password" required>
+                <button type="submit" class="btn">Lets go!</button>
+              </form>
+            </div>
+
+            <div class="card-back">
+              <h2 class="form-title">Sign up</h2>
+              <form class="form" @submit.prevent="createUser">
+                <input v-model="user.name" class="input" placeholder="Name" type="text" required>
+                <input v-model="user.email" class="input" placeholder="Email" type="email" required>
+                <input v-model="user.password" class="input" placeholder="Password" type="password" required>
+                <button type="submit" class="btn">Confirm!</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
 
-<style>
-
-/* From Uiverse.io by andrew-demchenk0 */
-.wrapper {
-  --input-focus: #8b5ea4;
-  --bg-color: color-mix(in srgb, var(--color-background) 80%, black);
-  --main-color: rgba(64, 48, 73, 0.76);
-
+<style scoped>
+.login-page {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  background-color: var(--color-background);
+  margin: 0; padding: 0;
+  overflow: hidden;
 }
 
-.switch {
-  transform: translateY(-200px);
-  position: relative;
+.side { flex: 1; display: flex; align-items: center; }
+.left { justify-content: flex-end; padding-right: 4vw; }
+.right { justify-content: flex-start; padding-left: 4vw; }
+
+.main-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  color: var(--color-text, #fff);
+  line-height: 0.85;
+  text-align: right;
+  text-shadow: 4px 4px #bc59f1;
+}
+
+.sub-text {
+  color: #888;
+  font-size: 1rem;
+  margin-top: 15px;
+  max-width: 320px;
+  text-align: right;
+  margin-left: auto;
+}
+
+.divider {
+  width: 3px;
+  height: 300px;
+  background-color: #bc59f1;
+}
+
+.auth-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 30px;
-  width: 50px;
-  height: 20px;
+  margin-top: -50px;
 }
 
-.card-side::before {
-  position: absolute;
-  content: 'Log in';
-  left: -70px;
-  top: 0;
-  width: 100px;
-  text-decoration: underline;
-  font-weight: 600;
+.switch-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
 }
 
-.card-side::after {
-  position: absolute;
-  content: 'Sign up';
-  left: 70px;
-  top: 0;
-  width: 100px;
-  text-decoration: none;
-  font-weight: 600;
-}
+.mode-label { color: var(--color-text, #fff); font-weight: 700; font-size: 0.9rem; }
 
-.toggle {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  outline: none;
-}
+.switch { position: relative; width: 50px; height: 24px; }
+.mode-checkbox { position: absolute; opacity: 0; width: 0; height: 0; }
 
 .slider {
-  box-sizing: border-box;
-  border-radius: 5px;
-  border: 2px solid var(--main-color);
-  box-shadow: 4px 4px var(--main-color);
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--bg-color);
-  transition: 0.3s;
+  position: absolute; cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: color-mix(in srgb, var(--color-background) 80%, gray);
+  border: 2px solid #bc59f1;
+  border-radius: 20px;
 }
 
 .slider:before {
-  box-sizing: border-box;
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  border: 2px solid var(--main-color);
-  border-radius: 5px;
-  left: -2px;
-  bottom: 2px;
-  background-color: var(--input-focus);
-  box-shadow: 0 3px 0 var(--main-color);
+  content: ""; position: absolute;
+  height: 16px; width: 16px;
+  left: 3px; bottom: 2px;
+  background-color: #bc59f1;
   transition: 0.3s;
+  border-radius: 50%;
 }
 
-.toggle:checked + .slider {
-  background-color: var(--bg-color);
+.mode-checkbox:checked + .slider:before { transform: translateX(24px); }
+
+.auth-container:has(.mode-checkbox:checked) .card-inner {
+  transform: rotateY(180deg);
 }
 
-.toggle:checked + .slider:before {
-  transform: translateX(30px);
-}
-
-.toggle:checked ~ .card-side:before {
-  text-decoration: none;
-}
-
-.toggle:checked ~ .card-side:after {
-  text-decoration: underline;
-}
-
-/* card */
-
-.flip-card__inner {
-  width: 300px;
-  height: 350px;
-  position: relative;
-  background-color: transparent;
+.card-area {
+  width: 280px;
+  height: 320px;
   perspective: 1000px;
-  text-align: center;
-  transition: transform 0.8s;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transition: transform 0.6s;
   transform-style: preserve-3d;
 }
 
-.toggle:checked ~ .flip-card__inner {
-  transform: rotateY(180deg);
-}
-
-.toggle:checked ~ .flip-card__front {
-  box-shadow: none;
-}
-
-.flip-card__front, .flip-card__back {
-  padding: 20px;
+.card-front, .card-back {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  -webkit-backface-visibility: hidden;
+  width: 100%; height: 100%;
   backface-visibility: hidden;
-  background: color-mix(in srgb, var(--color-background) 80%, black);
-  gap: 20px;
-  border-radius: 5px;
-  border: 2px solid var(--main-color);
-  box-shadow: 4px 4px var(--main-color);
-}
-
-.flip-card__back {
-  width: 100%;
-  transform: rotateY(180deg);
-}
-
-.flip-card__form {
+  background: color-mix(in srgb, var(--color-background) 95%, black);
+  border: 2px solid rgba(188, 89, 241, 0.4);
+  box-shadow: 6px 6px #bc59f1;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.title {
-  margin: 20px 0 20px 0;
-  font-size: 35px;
-  text-align: center;
-  font-weight: 700;
-  color: #ff33cc;
-}
-
-.flip-card__input {
-  width: 250px;
-  height: 40px;
-  border-radius: 5px;
-  border: 2px solid var(--main-color);
-  background-color: var(--bg-color);
-  box-shadow: 4px 4px var(--main-color);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--font-color);
-  padding: 5px 10px;
-  outline: none;
-}
-
-.flip-card__input::placeholder {
-  color: var(--font-color-sub);
-  opacity: 0.8;
-}
-
-.flip-card__input:focus {
-  border: 2px solid var(--input-focus);
-}
-
-.flip-card__btn {
-  margin: 20px 0 20px 0;
-  width: 120px;
-  height: 40px;
-  border-radius: 5px;
-  border: 2px solid var(--main-color);
-  background-color: var(--bg-color);
-  box-shadow: 4px 4px var(--main-color);
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-  color: inherit;
+  box-sizing: border-box;
 }
 
-.flip-card__btn:hover {
-  background-color: var(--main-color);
-  color: var(--bg-color);
+.card-back { transform: rotateY(180deg); }
+
+.form-title {
+  color: #bc59f1; font-size: 1.6rem; font-weight: 900;
+  margin-bottom: 20px; text-align: center;
 }
 
-.flip-card__btn:active {
-  box-shadow: 0px 0px var(--main-color);
-  transform: translate(3px, 3px);
+.input {
+  width: 100%; height: 38px;
+  background: var(--color-background);
+  border: 2px solid rgba(188, 89, 241, 0.2);
+  color: var(--color-text, #fff);
+  margin-bottom: 12px; padding: 0 10px;
+  border-radius: 5px; font-size: 0.9rem;
 }
 
+.btn {
+  width: 100%; height: 40px;
+  background: #bc59f1; border: none;
+  color: #fff; font-weight: 800;
+  border-radius: 5px; cursor: pointer;
+  box-shadow: 3px 3px #000;
+}
 </style>
-
