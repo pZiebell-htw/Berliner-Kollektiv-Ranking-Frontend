@@ -25,44 +25,30 @@ async function createUser() {
   }
 
   try {
-    // Username prüfen
-    const usernameResponse = await axios.get<boolean>(
-      `${API_URL}/user/exists/username`,
-      { params: { name: user.value.name } }
-    )
-
-    if (usernameResponse.data) {
-      alert("Name is already taken.")
-      return
-    }
-
-    // Email prüfen
-    const emailResponse = await axios.get<boolean>(
-      `${API_URL}/user/exists/email`,
-      { params: { email: user.value.email } }
-    )
-
-    if (emailResponse.data) {
-      alert("Email is already registered.")
-      return
-    }
-
-    // User anlegen
+    // Wir schicken den User direkt an das Backend.
+    // Das Backend prüft jetzt intern Name und Email!
     const response = await axios.post(
       `${API_URL}/user/create`,
       user.value,
       { headers: { "Content-Type": "application/json" } }
     )
 
+    // Wenn wir hier landen, war alles erfolgreich (Status 200)
     localStorage.setItem("user", JSON.stringify(response.data))
     alert("Account erfolgreich erstellt")
     router.push("/profile")
 
-  } catch (err) {
-    alert("Registrierung fehlgeschlagen")
+  } catch (err: any) {
+    // Wenn das Backend einen Fehler (wie 409) schickt, landen wir hier
+    if (err.response && err.response.status === 409) {
+      // Hier wird "Username oder E-Mail bereits vergeben" angezeigt
+      alert(err.response.data)
+    } else {
+      // Allgemeiner Fehler (z.B. Server down)
+      alert("Registrierung fehlgeschlagen. Bitte versuche es später erneut.")
+    }
   }
 }
-
 
 const loginData = ref({
   email: "",
@@ -74,12 +60,15 @@ async function login() {
     const response = await axios.post(`${API_URL}/user/login`, loginData.value, {
       headers: { "Content-Type": "application/json" }
     })
-
     localStorage.setItem("user", JSON.stringify(response.data))
-
     router.push('/ranking')
   } catch (err: any) {
-      alert("Login failed")
+
+    if (err.response && err.response.data) {
+      alert(err.response.data)
+    } else {
+      alert("Login failed. Please check your credentials.")
+    }
   }
 }
 
