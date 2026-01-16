@@ -57,17 +57,24 @@ function goToDetail(id: string) {
 
 // Zufallsfunktion
 function geheZuZufall() {
-  if (!allKollektivs.value.length) return
+  if (allKollektivs.value.length === 0) return
 
   let zufall: Kollektiv
+
   do {
     const index = Math.floor(Math.random() * allKollektivs.value.length)
-    zufall = allKollektivs.value[index]
-  } while (route.params.id === zufall.id && allKollektivs.value.length > 1)
+    zufall = allKollektivs.value[index] as Kollektiv
+  } while (
+    zufall &&
+    route.params.id === String(zufall.id) &&
+    allKollektivs.value.length > 1
+    )
 
-  router.replace({ path: '/' }).then(() => {
-    router.push({ name: 'kollektivDetail', params: { id: zufall.id } }).catch(() => {})
-  })
+  if (zufall) {
+    router.replace({ path: '/' }).then(() => {
+      router.push({ name: 'kollektivDetail', params: { id: String(zufall.id) } }).catch(() => {})
+    })
+  }
 }
 
 </script>
