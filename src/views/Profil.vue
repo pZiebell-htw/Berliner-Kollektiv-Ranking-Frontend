@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted } from 'vue'
 import axios from 'axios'
 import { API_URL } from '@/services/api.ts'
 import router from '@/router'
@@ -15,7 +15,6 @@ const user = ref<User | null>(null)
 async function loadUser(userId: number) {
   try {
     const response = await axios.get(`${API_URL}/user/${userId}`)
-    console.log("Antwort Backend:", response.data)
     user.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden:", err)
@@ -23,7 +22,7 @@ async function loadUser(userId: number) {
 }
 
 function logout() {
-  localStorage.removeItem("user")
+  localStorage.clear()
   router.push("/login")
 }
 
@@ -41,11 +40,18 @@ const kollektivs = ref<Kollektiv[]>([])
 async function loadKollektivs(userId: number) {
   try {
     const response = await axios.get(`${API_URL}/kollektiv/user/${userId}`)
-    console.log("Antwort Backend:", response.data)
     kollektivs.value = response.data
   } catch (err) {
     console.error("Fehler beim Laden:", err)
   }
+}
+
+const showScrollButton = ref(false)
+const handleScroll = () => {
+  showScrollButton.value = window.scrollY > 300
+}
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 onMounted(() => {
@@ -55,6 +61,11 @@ onMounted(() => {
     loadUser(parsedUser.id)
     loadKollektivs(parsedUser.id)
   }
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -63,6 +74,7 @@ onMounted(() => {
     <div class="profile-info-only-text">
       <h2 class="username">{{ user?.name }}</h2>
       <p class="email">{{ user?.email }}</p>
+      <button class="logout" @click="logout">Logout</button>
     </div>
   </header>
 
@@ -90,26 +102,62 @@ onMounted(() => {
         </article>
       </template>
     </router-link>
-
-    <button class="logout" @click="logout">Logout</button>
   </main>
+
+  <button
+    v-if="showScrollButton"
+    @click="scrollToTop"
+    class="scroll-to-top"
+  >
+    ↑
+  </button>
 </template>
 
-<style>
+<style scoped>
 .profile-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0.25rem 5%;
-  border-radius: 10px;
-  margin: 1rem auto 5rem auto;
   width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12vh;
+  margin-bottom: 12vh;
 }
 
-.profile-info-only-text .email {
+.username {
+  font-size: 6vh;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+  color: #fff;
+}
+
+.email {
   color: #aaa;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.logout {
+  width: 14vw;
+  min-width: 120px;
+  height: 4.5vh;
+  background: rgba(188, 89, 241, 0.6);
+  border: none;
+  border-radius: 6px;
+  font-size: 1.8vh;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout:hover {
+  background-color: rgba(188, 89, 241, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(188, 89, 241, 0.35);
 }
 
 .posts-list {
@@ -117,7 +165,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 1rem;
   width: 90%;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto 5rem auto;
   align-items: center;
 }
 
@@ -126,33 +174,84 @@ onMounted(() => {
   font-weight: 700;
   color: #555;
   text-transform: uppercase;
-  margin-bottom: 1rem;
-  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.kollektiv-card {
+  position: relative;
+  height: 23vh;
+  display: flex;
+  align-items: flex-start;
+  background: color-mix(in srgb, var(--color-background) 80%, black);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(188, 89, 241, 0.36);
+  width: 90%;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.kollektiv-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(188, 89, 241, 0.2);
+}
+
+.kollektiv-image {
+  width: 23vh;
+  height: 23vh;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .kollektiv-content {
+  padding: 1rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.logout {
-  width: 14vw;
-  height: 5vh;
-  margin-top: 2rem;
-  background: rgba(188, 89, 241, 0.6);
-  border: none;
-  border-radius: 6px;
-  font-size: 1.9vh;
-  font-weight: 700;
+.kollektiv-title {
+  font-size: 4vh;
+  font-weight: 800;
+  text-transform: uppercase;
   color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  margin: 0;
 }
 
-.logout:hover {
-  background-color: rgba(188, 89, 241, 0.85);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+.kollektiv-genre {
+  color: #aaa;
+  font-size: 3vh;
+  margin-bottom: 0.5rem;
+}
+
+.kollektiv-describtion {
+  color: #aaa;
+  font-size: 1.9vh;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(188, 89, 241, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: rgba(188, 89, 241, 1);
+  transform: scale(1.1);
 }
 </style>

@@ -2,7 +2,7 @@
 defineOptions({ name: 'RankingView' })
 import AddButton from '@/components/AddButton.vue'
 import { useRouter } from 'vue-router'
-import { ref, onMounted, computed } from 'vue' // filter
+import { ref, onMounted, onUnmounted, computed } from 'vue' // filter & scroll
 import axios from 'axios'
 import { API_URL } from '../services/api'
 
@@ -59,8 +59,26 @@ async function deleteKollektiv(id: number) {
   }
 }
 
+const showScrollButton = ref(false)
+
+const handleScroll = () => {
+  showScrollButton.value = window.scrollY > 300
+}
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
+
 onMounted(() => {
   loadKollektivs()
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 
 const selectedRating = ref<{ [id: number]: number }>({}) // speichert aktuelle Stern-Bewertung pro Kollektiv
@@ -102,9 +120,6 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
   }
 }
 
-
-
-
 </script>
 
 <template>
@@ -112,7 +127,6 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
     <h2>Top Collectives Ranking</h2>
   </header>
 
-  <!-- Filter -->
   <div class="top-controls">
     <select v-model="selectedGenre" class="genre-dropdown">
       <option value="">All Genres</option>
@@ -125,58 +139,92 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
   <main class="kollektivs-list">
     <router-link
       v-for="kollektiv in filteredKollektivs"
-    :key="kollektiv.id"
-    :to="{ name: 'kollektivDetail', params: { id: String(kollektiv.id) } }"
-    class="kollektiv-card-link"
-    custom
+      :key="kollektiv.id"
+      :to="{ name: 'kollektivDetail', params: { id: String(kollektiv.id) } }"
+      class="kollektiv-card-link"
+      custom
     >
-    <template #default="{ navigate }">
-      <article class="kollektiv-card" @click="navigate">
-        <img
-          :src="kollektiv.bildUrl || '/placeholder.png'"
-          :alt="kollektiv.name"
-          class="kollektiv-image"
-        />
+      <template #default="{ navigate }">
+        <article class="kollektiv-card" @click="navigate">
+          <img
+            :src="kollektiv.bildUrl || '/placeholder.png'"
+            :alt="kollektiv.name"
+            class="kollektiv-image"
+          />
 
-        <div class="kollektiv-content">
-          <div class="kollektiv-header">
-            <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
-            <span class="kollektiv-durchschnittsbewertung">
+          <div class="kollektiv-content">
+            <div class="kollektiv-header">
+              <h3 class="kollektiv-title">{{ kollektiv.name }}</h3>
+              <span class="kollektiv-durchschnittsbewertung">
               <span class="avg-symbol">Ø</span>
               <span class="avg-value">{{ kollektiv.durchschnittsBewertung.toFixed(1) }}</span>
             </span>
 
-          </div>          <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
-          <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
-        </div>
-        <button
-          class="delete-button"
-          type="button"
-          @click.stop.prevent="deleteKollektiv(kollektiv.id)"
-        >
-          Delete
-        </button>
-
-        <div class="rating">
+            </div>          <p class="kollektiv-genre">{{ kollektiv.genre }}</p>
+            <p class="kollektiv-describtion">{{ kollektiv.beschreibung }}</p>
+          </div>
           <button
-            v-for="star in 5"
-            :key="star"
+            class="delete-button"
             type="button"
-            :class="['star']"
-            @click.stop.prevent="rateKollektiv(kollektiv, star)"
+            @click.stop.prevent="deleteKollektiv(kollektiv.id)"
           >
-            ★
+            Delete
           </button>
-        </div>
+
+          <div class="rating">
+            <button
+              v-for="star in 5"
+              :key="star"
+              type="button"
+              :class="['star']"
+              @click.stop.prevent="rateKollektiv(kollektiv, star)"
+            >
+              ★
+            </button>
+          </div>
 
 
-      </article>
-    </template>
+        </article>
+      </template>
     </router-link>
   </main>
+
+  <button
+    v-if="showScrollButton"
+    @click="scrollToTop"
+    class="scroll-to-top"
+  >
+    ↑
+  </button>
 </template>
 
 <style>
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(188, 89, 241, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top:hover {
+  background-color: rgba(188, 89, 241, 1);
+  transform: scale(1.1);
+}
 
 .kollektiv-header {
   display: flex;
@@ -234,10 +282,6 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
   color: rgba(188, 89, 241, 0.77);
   transform: scale(1.2);
 }
-
-
-
-
 
 /* Filter */
 .top-controls {
