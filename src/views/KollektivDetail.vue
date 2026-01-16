@@ -83,7 +83,7 @@ onMounted(() => {
 .kollektiv-detail {
   margin-top: 5vh;
   padding: 1% 2%;
-  height: calc(100vh - 5vh);
+  min-height: calc(100vh - 5vh);
   display: flex;
   justify-content: center;
 }
@@ -99,17 +99,22 @@ onMounted(() => {
   border: 2px solid rgba(188, 89, 241, 0.36);
   padding: 2rem;
   box-sizing: border-box;
+  height: fit-content;
 }
 
 .top-content {
   display: flex;
   gap: 2.5rem;
   margin-bottom: 2rem;
+  align-items: flex-start;
 }
 
 .kollektiv-image-container {
   width: 250px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .kollektiv-image {
@@ -117,8 +122,6 @@ onMounted(() => {
   height: 250px !important;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  max-width: 250px;
-  max-height: 250px;
   border-radius: 8px;
   border: 1px solid rgba(188, 89, 241, 0.2);
   display: block;
@@ -166,7 +169,7 @@ onMounted(() => {
 
 .bottom-content {
   width: 100%;
-  margin-top: auto;
+  margin-top: 0.1rem;
 }
 
 .soundcloud-wrapper {
@@ -180,15 +183,6 @@ onMounted(() => {
   background-color: transparent !important;
   border: none !important;
   display: block;
-}
-
-.kollektiv-image-container {
-  width: 250px;
-  height: 250px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }
 
 .instagram-brand {
@@ -221,5 +215,4 @@ onMounted(() => {
   font-size: 1.1rem;
   letter-spacing: 0.5px;
 }
-
 </style>
