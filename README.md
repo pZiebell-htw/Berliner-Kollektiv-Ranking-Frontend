@@ -1,54 +1,53 @@
-# Berliner-Kollektiv-Ranking-Frontend
+# Berliner-Kollektiv-Ranking
 
-This template should help get you started developing with Vue 3 in Vite.
+Philipp Immanuel Ziebell (596975),
+Thomas Franz Nguyen (597417)
 
-## Recommended IDE Setup
+### Links
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Render-Link Backend:
+https://berliner-kollektiv-ranking-js0r.onrender.com/
 
-## Recommended Browser Setup
+Render-Link Frontend:
+https://berliner-kollektiv-ranking-frontend.onrender.com/
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+GitHub Repository Backend:
+https://github.com/pZiebell-htw/Berliner-Kollektiv-Ranking.git
 
-## Type Support for `.vue` Imports in TS
+GitHub Repository Frontend:
+https://github.com/pZiebell-htw/Berliner-Kollektiv-Ranking-Frontend.git
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### Hinweise zur Projektentwicklung
+Dieses Projekt wurde unter Einsatz von KI-Tools (ChatGPT, GitHub Copilot und Google Gemini) entwickelt.
+Zudem haben wir auch UI-Komponenten und Designs aus uiverse.io genutzt.
 
-## Customize configuration
+### Projektbeschreibung
+Berliner-Kollektiv-Ranking ermöglicht Musik-Liebhabern, die vielfältigen Kollektive Berlins zu entdecken und miteinander zu teilen.
+Das Rating-System ermöglicht den Nutzern die Kollektive zu bewerten, um damit anderen Musik-Begeisterten bei der Suche nach neuen Erlebnissen zu helfen.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Nutzung
+#### Anmelden & Registrieren:
+Die Nutzung der Webseite erfordert ein Nutzerkonto. Dieses können Sie durch Angabe eines Namens, einer E-Mail-Adresse und eines Passworts erstellen.
+Haben Sie bereits ein Konto, erfolgt das Login über Ihre E-Mail und dem von Ihnen festgelegten Passwort.
 
-## Project Setup
+#### Kollektive erstellen & ansehen:
+Sobald Sie eingeloggt sind, können Sie ein Kollektiv zum Ranking hinzufügen, indem Sie auf den "+ Add"-Button Klicken.
+Nach Eingabe aller geforderten Daten und einem weiteren Klick auf "Add" werden Sie zurück zum Ranking weitergeleitet, wo Sie Ihren neu hinzugefügten Eintrag nun sehen.
+Durck Klicken auf einen Beitrag gelangen Sie zur Detailansicht.
 
-```sh
-npm install
-```
+#### Kollektive bewerten:
+Durch Klicken auf die Sterne in der unteren rechten Ecke können Sie pro Kollektiv eine Bewertung von 1 bis 5 Sternen abgeben.
+Die aktualisierte Durchschnittsbewertung ändert in Echtzeit das Ranking.
 
-### Compile and Hot-Reload for Development
+#### Kollektive filtern:
+Über das Dropdown-Menü oben links können Sie die Kollektive nach Musikgenre filtern.
 
-```sh
-npm run dev
-```
+#### Kollektive suchen:
+Oben in der Suchleiste können Sie gezielt nach Kollektiven suchen, geben Sie einfach den Namen des Kollektivs ein und Ihnen werden passende Suchvorschläge angezeigt.
 
-### Type-Check, Compile and Minify for Production
+#### Zuletzt angesehene Kollektive anzeigen:
+In der Menüleiste finden Sie den Button "Last Viewed". Durch Klicken darauf werden Ihnen die Posts angezeigt, die Sie zuletzt geöffnet haben.
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+#### Profil anzeigen:
+Über den "Profil"-Button in der Menüleiste gelangen Sie zu Ihrem Profil, der Ihnen Ihre erstellten Beiträge anzeigt.
+Außerdem finden Sie hier auch den Button zum Ausloggen, womit Sie wieder auf die Login-Seite zurückkehren.
