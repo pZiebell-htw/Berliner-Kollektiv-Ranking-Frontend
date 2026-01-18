@@ -132,13 +132,13 @@ function geheZuZufall() {
   outline: none;
   border: 0;
   min-width: 88px;
-  height: 36px;
+  height: 4vh;
   border-radius: 5px;
   padding: 0 12px;
   background-color: transparent;
   color: #fff;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 2vh;
   display: inline-flex;
   align-items: center;
   justify-content: center;
