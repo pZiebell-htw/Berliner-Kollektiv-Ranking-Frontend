@@ -107,7 +107,7 @@ async function login() {
   color: var(--color-text, #fff);
   line-height: 0.85;
   text-align: right;
-  text-shadow: 4px 4px #bc59f1;
+  text-shadow: 4px 4px #403049;
 }
 
 .sub-text {
@@ -122,7 +122,7 @@ async function login() {
 .divider {
   width: 3px;
   height: 300px;
-  background-color: #bc59f1;
+  background-color: #403049;
 }
 
 .auth-container {
@@ -148,7 +148,7 @@ async function login() {
   position: absolute; cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
   background-color: color-mix(in srgb, var(--color-background) 80%, gray);
-  border: 2px solid #bc59f1;
+  border: 2px solid #403049;
   border-radius: 20px;
 }
 
@@ -156,7 +156,7 @@ async function login() {
   content: ""; position: absolute;
   height: 16px; width: 16px;
   left: 3px; bottom: 2px;
-  background-color: #bc59f1;
+  background-color: #403049;
   transition: 0.3s;
   border-radius: 50%;
 }
@@ -186,7 +186,7 @@ async function login() {
   backface-visibility: hidden;
   background: color-mix(in srgb, var(--color-background) 95%, black);
   border: 2px solid rgba(188, 89, 241, 0.4);
-  box-shadow: 6px 6px #bc59f1;
+  box-shadow : 10px 10px #403049;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -198,7 +198,7 @@ async function login() {
 .card-back { transform: rotateY(180deg); }
 
 .form-title {
-  color: #bc59f1; font-size: 1.6rem; font-weight: 900;
+  color: #403049; font-size: 1.6rem; font-weight: 900;
   margin-bottom: 20px; text-align: center;
 }
 
@@ -213,9 +213,13 @@ async function login() {
 
 .btn {
   width: 100%; height: 40px;
-  background: #bc59f1; border: none;
+  background: #403049; border: none;
   color: #fff; font-weight: 800;
   border-radius: 5px; cursor: pointer;
   box-shadow: 3px 3px #000;
+}
+
+.btn:hover {
+  background: #BC59F1D8;
 }
 </style>

@@ -400,5 +400,12 @@ header h2 {
 .kollektiv-describtion {
   color: #aaa;
   font-size: 1.9vh;
+  margin-right: 7vw;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+
 </style>

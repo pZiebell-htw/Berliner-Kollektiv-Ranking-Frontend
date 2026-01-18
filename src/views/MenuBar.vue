@@ -88,10 +88,6 @@ function geheZuZufall() {
   <div v-if="isLoggedIn && route.path !== '/login' && route.path !== '/'" class="button-container">
     <router-link to="/ranking" class="button">RANKING</router-link>
 
-    <div class="random-button" @click="geheZuZufall">
-      <span>Random</span>
-      <span>Collective</span>
-    </div>
 
     <div class="search-wrapper">
       <input
@@ -113,6 +109,7 @@ function geheZuZufall() {
 </template>
 
 <style scoped>
+
 .button-container {
   position: fixed;
   top: 0;
@@ -148,6 +145,7 @@ function geheZuZufall() {
 }
 
 .history-btn {
+  font-size: 1.5vh;
   margin-left: auto;
 }
 
@@ -188,18 +186,5 @@ function geheZuZufall() {
 
 .suggestions li:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-.random-button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  line-height: 1.1;
-  text-align: center;
-}
+
 </style>

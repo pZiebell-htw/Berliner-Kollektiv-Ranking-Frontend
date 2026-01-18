@@ -50,7 +50,7 @@ async function submit() {
       { headers: { "Content-Type": "application/json" } }
     );
     alert("You've successfully added a collective!");
-    window.location.href = "/ranking";
+    router.push('/ranking');
   } catch (err: unknown) {
     console.warn("Error", err);
     alert("Error, please try again.");
