@@ -34,8 +34,7 @@ async function login() {
       <div class="logo-wrap">
         <h1 class="main-title">BERLINER<br>KOLLEKTIV<br>RANKING</h1>
         <p class="sub-text">
-          Entdecke und bewerte die pulsierende Musikszene Berlins.
-          Vom Techno-Keller bis zum Open-Air.
+
         </p>
       </div>
     </div>
@@ -103,7 +102,7 @@ async function login() {
 
 .main-title {
   font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 900;
+  font-weight: 700;
   color: var(--color-text, #fff);
   line-height: 0.85;
   text-align: right;
