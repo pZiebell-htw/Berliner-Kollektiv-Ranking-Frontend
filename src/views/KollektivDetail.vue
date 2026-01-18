@@ -1,3 +1,52 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import axios from 'axios'
+import { API_URL } from '../services/api'
+import SoundcloudView from '@/components/SoundcloudView.vue'
+
+interface Kollektiv {
+  id: string;
+  name: string;
+  genre: string;
+  bildUrl: string;
+  beschreibung: string;
+  durchschnittsBewertung: number;
+  instagramUrl: string;
+  soundcloudUrl: string;
+}
+
+const kollektiv = ref<Kollektiv | null>(null)
+const route = useRoute()
+
+function saveToHistory(k: Kollektiv) {
+  const history = JSON.parse(localStorage.getItem('lastViewed') || '[]')
+  const entry = { id: k.id, name: k.name, bildUrl: k.bildUrl }
+  const filtered = history.filter((item: any) => item.id !== entry.id)
+  filtered.unshift(entry)
+  localStorage.setItem('lastViewed', JSON.stringify(filtered.slice(0, 10)))
+}
+
+async function loadKollektivDetail() {
+  const id = route.params.id as string
+  try {
+    const response = await axios.get(`${API_URL}/kollektiv/${id}`)
+    kollektiv.value = response.data
+    if (kollektiv.value) {
+      saveToHistory(kollektiv.value)
+    }
+  } catch (err) {
+    console.error("Fehler beim Laden des Kollektivs:", err)
+  }
+}
+
+onMounted(() => {
+  loadKollektivDetail()
+})
+</script>
+
+
+
 <template>
   <main class="kollektiv-detail">
     <div v-if="kollektiv" class="kollektiv-container">
@@ -32,52 +81,6 @@
   </main>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import axios from 'axios'
-import { API_URL } from '../services/api'
-import SoundcloudView from '@/components/SoundcloudView.vue'
-
-interface Kollektiv {
-  id: string;
-  name: string;
-  genre: string;
-  bildUrl: string;
-  beschreibung: string;
-  durchschnittsBewertung: number;
-  instagramUrl: string;
-  soundcloudUrl: string;
-}
-
-const kollektiv = ref<Kollektiv | null>(null)
-const route = useRoute()
-
-function saveToHistory(k: Kollektiv) {
-  const history = JSON.parse(localStorage.getItem('lastViewed') || '[]')
-  const entry = { id: k.id, name: k.name, bildUrl: k.bildUrl }
-  const filtered = history.filter((item: any) => item.id !== entry.id)
-  filtered.unshift(entry)
-  localStorage.setItem('lastViewed', JSON.stringify(filtered.slice(0, 8)))
-}
-
-async function loadKollektivDetail() {
-  const id = route.params.id as string
-  try {
-    const response = await axios.get(`${API_URL}/kollektiv/${id}`)
-    kollektiv.value = response.data
-    if (kollektiv.value) {
-      saveToHistory(kollektiv.value)
-    }
-  } catch (err) {
-    console.error("Fehler beim Laden des Kollektivs:", err)
-  }
-}
-
-onMounted(() => {
-  loadKollektivDetail()
-})
-</script>
 
 <style scoped>
 .kollektiv-detail {
@@ -93,7 +96,6 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1200px;
   background: color-mix(in srgb, var(--color-background) 80%, black);
   border-radius: 12px;
   border: 2px solid rgba(188, 89, 241, 0.36);
@@ -110,7 +112,7 @@ onMounted(() => {
 }
 
 .kollektiv-image-container {
-  width: 250px;
+  width: 15vw;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -118,8 +120,8 @@ onMounted(() => {
 }
 
 .kollektiv-image {
-  width: 250px !important;
-  height: 250px !important;
+  width: 15vw !important;
+  height: 15vw !important;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 8px;
