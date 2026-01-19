@@ -124,7 +124,7 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
 
 <template>
   <header>
-    <h2>Top Collectives</h2>
+    <h2>Top Collectives Ranking</h2>
   </header>
 
   <div class="top-controls">
