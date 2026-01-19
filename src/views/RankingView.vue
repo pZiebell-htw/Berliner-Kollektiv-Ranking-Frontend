@@ -125,6 +125,7 @@ async function rateKollektiv(kollektiv: Kollektiv, rating: number) {
 <template>
   <header>
     <h2>Top Collectives</h2>
+    <!-- Überschrift geändert-->
   </header>
 
   <div class="top-controls">
