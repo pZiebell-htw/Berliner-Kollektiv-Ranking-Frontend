@@ -59,7 +59,7 @@ describe('RankingView.vue Tests (Mindestanforderungen)', () => {
 
   it('2. Überschrift wird angezeigt', () => {
     const wrapper = createWrapper()
-    expect(wrapper.find('h2').text()).toBe('Top Collectives Ranking')
+    expect(wrapper.find('h2').text()).toBe('Top Collectives')
   })
 
   it('3. Kollektiv-Daten werden gerendert', async () => {
