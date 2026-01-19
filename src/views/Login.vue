@@ -178,12 +178,12 @@ async function login() {
   transition: transform 0.6s;
   transform-style: preserve-3d;
   box-shadow: 10px 10px #403049;
-  border: 2px solid rgba(188, 89, 241, 0.4);
+  border: 1px solid rgba(188, 89, 241, 0.4);
   border-radius: 10px;
 }
 
 .card-front, .card-back {
-  border: 2px solid rgba(188, 89, 241, 0.4);
+  border: 1px solid rgba(188, 89, 241, 0.4);
   border-radius: 10px;
   position: absolute;
   width: 100%; height: 100%;
